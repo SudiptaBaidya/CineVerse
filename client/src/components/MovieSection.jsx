@@ -4,11 +4,10 @@ import { Play, Heart, Star } from 'lucide-react';
 import { tmdbAPI } from '../services/tmdb';
 import './MovieSection.css';
 
-const MovieSection = ({ title = "You Might Like", type = "recommendations", movies: propMovies, onMovieClick }) => {
+const MovieSection = ({ title = "You Might Like", type = "recommendations", movies: propMovies, onMovieClick, favorites = [], onToggleFavorite }) => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [hoveredMovie, setHoveredMovie] = useState(null);
-  const [favorites, setFavorites] = useState(new Set());
 
   useEffect(() => {
     if (propMovies) {
@@ -61,16 +60,8 @@ const MovieSection = ({ title = "You Might Like", type = "recommendations", movi
     fetchMovies();
   }, [type, propMovies]);
 
-  const toggleFavorite = (movieId) => {
-    setFavorites(prev => {
-      const newFavorites = new Set(prev);
-      if (newFavorites.has(movieId)) {
-        newFavorites.delete(movieId);
-      } else {
-        newFavorites.add(movieId);
-      }
-      return newFavorites;
-    });
+  const isFavorite = (movieId) => {
+    return favorites.some(fav => fav.id === movieId);
   };
 
   const handleMovieClick = (movieId, event) => {
@@ -195,15 +186,15 @@ const MovieSection = ({ title = "You Might Like", type = "recommendations", movi
                         Watch
                       </button>
                       <motion.button 
-                        className={`btn-favorite ${favorites.has(movie.id) ? 'favorited' : ''}`}
+                        className={`btn-favorite ${isFavorite(movie.id) ? 'favorited' : ''}`}
                         onClick={(e) => {
                           e.stopPropagation();
-                          toggleFavorite(movie.id);
+                          onToggleFavorite && onToggleFavorite(movie);
                         }}
                         whileTap={{ scale: 0.9 }}
                       >
-                        <Heart className={`heart-icon ${favorites.has(movie.id) ? 'filled' : ''}`} />
-                        Favorite
+                        <Heart className={`heart-icon ${isFavorite(movie.id) ? 'filled' : ''}`} />
+                        {isFavorite(movie.id) ? 'Remove' : 'Favorite'}
                       </motion.button>
                     </motion.div>
                   </motion.div>

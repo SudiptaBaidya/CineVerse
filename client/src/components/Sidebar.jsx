@@ -1,14 +1,14 @@
 import { Home, Film, MessageCircle, Heart, Download, Settings } from 'lucide-react';
 import './Sidebar.css';
 
-const Sidebar = () => {
+const Sidebar = ({ onViewChange, currentView }) => {
   const navItems = [
-    { name: 'Home', icon: Home, active: true },
-    { name: 'Movies', icon: Film },
-    { name: 'Messages', icon: MessageCircle },
-    { name: 'Favorites', icon: Heart },
-    { name: 'Downloads', icon: Download },
-    { name: 'Settings', icon: Settings },
+    { name: 'Home', icon: Home, view: 'home' },
+    { name: 'Movies', icon: Film, view: 'movies' },
+    { name: 'Messages', icon: MessageCircle, view: 'messages' },
+    { name: 'Favorites', icon: Heart, view: 'favorites' },
+    { name: 'Downloads', icon: Download, view: 'downloads' },
+    { name: 'Settings', icon: Settings, view: 'settings' },
   ];
 
   return (
@@ -24,14 +24,14 @@ const Sidebar = () => {
               {navItems.map((item) => {
                 const Icon = item.icon;
                 return (
-                  <a
+                  <button
                     key={item.name}
-                    href="#"
-                    className={`nav-item ${item.active ? 'nav-item-active' : ''}`}
+                    onClick={() => onViewChange && onViewChange(item.view)}
+                    className={`nav-item ${currentView === item.view ? 'nav-item-active' : ''}`}
                   >
                     <Icon className="nav-icon" />
                     {item.name}
-                  </a>
+                  </button>
                 );
               })}
             </nav>
@@ -45,14 +45,14 @@ const Sidebar = () => {
           {navItems.map((item) => {
             const Icon = item.icon;
             return (
-              <a
+              <button
                 key={item.name}
-                href="#"
+                onClick={() => onViewChange && onViewChange(item.view)}
                 className="mobile-nav-item"
               >
-                <Icon className={`mobile-nav-icon ${item.active ? 'mobile-nav-icon-active' : ''}`} />
+                <Icon className={`mobile-nav-icon ${currentView === item.view ? 'mobile-nav-icon-active' : ''}`} />
                 <span className="mobile-nav-text">{item.name}</span>
-              </a>
+              </button>
             );
           })}
         </div>

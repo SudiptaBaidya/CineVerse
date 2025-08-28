@@ -56,5 +56,48 @@ export const userAPI = {
       console.error('Error removing search history:', error);
       return null;
     }
+  },
+
+  // Get user favorites
+  getFavorites: async (userId) => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/users/${userId}/favorites`);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const data = await response.json();
+      return data.favorites || [];
+    } catch (error) {
+      console.error('Error fetching favorites:', error);
+      return [];
+    }
+  },
+
+  // Add movie to favorites
+  addFavorite: async (userId, movie) => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/users/${userId}/favorites`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(movie)
+      });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      return await response.json();
+    } catch (error) {
+      console.error('Error adding favorite:', error);
+      return null;
+    }
+  },
+
+  // Remove movie from favorites
+  removeFavorite: async (userId, movieId) => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/users/${userId}/favorites/${movieId}`, {
+        method: 'DELETE'
+      });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      return await response.json();
+    } catch (error) {
+      console.error('Error removing favorite:', error);
+      return null;
+    }
   }
 };

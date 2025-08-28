@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { signInWithPopup, signOut } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, googleProvider } from './firebase';
 import { tmdbAPI } from './services/tmdb';
+import { userAPI } from './services/api';
 import Sidebar from './components/Sidebar';
 import TopNav from './components/TopNav';
 import HeroBanner from './components/HeroBanner';
@@ -15,6 +16,8 @@ function App() {
   const [selectedMovieId, setSelectedMovieId] = useState(null);
   const [searchResults, setSearchResults] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
+  const [currentView, setCurrentView] = useState('home');
+  const [favorites, setFavorites] = useState([]);
 
   const signInWithGoogle = async () => {
     try {
@@ -57,6 +60,39 @@ function App() {
     setSearchQuery('');
   };
 
+  const handleViewChange = (view) => {
+    setCurrentView(view);
+    setSearchResults(null);
+    setSearchQuery('');
+  };
+
+  const loadFavorites = async () => {
+    if (user?.uid) {
+      const userFavorites = await userAPI.getFavorites(user.uid);
+      setFavorites(userFavorites);
+    }
+  };
+
+  useEffect(() => {
+    if (user?.uid) {
+      loadFavorites();
+    }
+  }, [user]);
+
+  const toggleFavorite = async (movie) => {
+    if (!user?.uid) return;
+    
+    const isFavorite = favorites.some(fav => fav.id === movie.id);
+    
+    if (isFavorite) {
+      await userAPI.removeFavorite(user.uid, movie.id);
+    } else {
+      await userAPI.addFavorite(user.uid, movie);
+    }
+    
+    await loadFavorites();
+  };
+
   if (!user) {
     return (
       <div className="login-container">
@@ -81,7 +117,7 @@ function App() {
 
   return (
     <div className="app">
-      <Sidebar />
+      <Sidebar onViewChange={handleViewChange} currentView={currentView} />
       <TopNav user={user} onLogout={handleLogout} onSearch={handleSearch} />
 
       {/* Main Content */}
@@ -95,15 +131,31 @@ function App() {
             <MovieSection 
               title={`Found ${searchResults.length} movies`} 
               movies={searchResults} 
-              onMovieClick={handleMovieClick} 
+              onMovieClick={handleMovieClick}
+              favorites={favorites}
+              onToggleFavorite={toggleFavorite}
+            />
+          </div>
+        ) : currentView === 'favorites' ? (
+          <div className="favorites-view">
+            <div className="favorites-header">
+              <h2>My Favorites</h2>
+              <button onClick={loadFavorites} className="refresh-favorites">Refresh</button>
+            </div>
+            <MovieSection 
+              title={`${favorites.length} favorite movies`} 
+              movies={favorites} 
+              onMovieClick={handleMovieClick}
+              favorites={favorites}
+              onToggleFavorite={toggleFavorite}
             />
           </div>
         ) : (
           <>
             <HeroBanner onMovieClick={handleMovieClick} />
-            <MovieSection title="You Might Like" type="recommendations" onMovieClick={handleMovieClick} />
-            <MovieSection title="Trending Now" type="trending" onMovieClick={handleMovieClick} />
-            <MovieSection title="Popular Movies" type="popular" onMovieClick={handleMovieClick} />
+            <MovieSection title="You Might Like" type="recommendations" onMovieClick={handleMovieClick} favorites={favorites} onToggleFavorite={toggleFavorite} />
+            <MovieSection title="Trending Now" type="trending" onMovieClick={handleMovieClick} favorites={favorites} onToggleFavorite={toggleFavorite} />
+            <MovieSection title="Popular Movies" type="popular" onMovieClick={handleMovieClick} favorites={favorites} onToggleFavorite={toggleFavorite} />
           </>
         )}
       </div>

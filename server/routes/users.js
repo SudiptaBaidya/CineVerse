@@ -80,4 +80,75 @@ router.delete('/:userId/search-history/:query', async (req, res) => {
   }
 });
 
+// Get user favorites
+router.get('/:userId/favorites', async (req, res) => {
+  try {
+    const user = await User.findOne({ uid: req.params.userId });
+    if (!user) {
+      return res.json({ favorites: [] });
+    }
+    
+    const favorites = user.favorites
+      .sort((a, b) => b.addedAt - a.addedAt)
+      .map(fav => ({
+        id: fav.movieId,
+        title: fav.title,
+        poster: fav.poster,
+        rating: fav.rating
+      }));
+    
+    res.json({ favorites });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Add movie to favorites
+router.post('/:userId/favorites', async (req, res) => {
+  try {
+    const { id, title, poster, rating } = req.body;
+    if (!id || !title) {
+      return res.status(400).json({ error: 'Movie ID and title are required' });
+    }
+
+    let user = await User.findOne({ uid: req.params.userId });
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Check if already in favorites
+    const existingFav = user.favorites.find(fav => fav.movieId === id);
+    if (existingFav) {
+      return res.json({ success: true, message: 'Already in favorites' });
+    }
+
+    user.favorites.push({
+      movieId: id,
+      title,
+      poster,
+      rating,
+      addedAt: new Date()
+    });
+
+    await user.save();
+    res.json({ success: true });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Remove movie from favorites
+router.delete('/:userId/favorites/:movieId', async (req, res) => {
+  try {
+    const movieId = parseInt(req.params.movieId);
+    await User.findOneAndUpdate(
+      { uid: req.params.userId },
+      { $pull: { favorites: { movieId: movieId } } }
+    );
+    res.json({ success: true });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 module.exports = router;
