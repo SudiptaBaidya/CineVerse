@@ -1,4 +1,4 @@
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://cineverse-backend-xyz.onrender.com/api';
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://cineverse-sqqj.onrender.com/api';
 
 export const userAPI = {
   // Get user search history
