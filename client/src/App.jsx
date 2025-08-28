@@ -1,6 +1,7 @@
 import { signInWithPopup, signOut } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, googleProvider } from './firebase';
+import Sidebar from './components/Sidebar';
 
 function App() {
   const [user] = useAuthState(auth);
@@ -49,10 +50,13 @@ function App() {
 
   return (
     <div className="min-h-screen bg-cineverse-bg text-white">
-      <nav className="bg-cineverse-card/90 backdrop-blur-sm p-4 sticky top-0 z-50">
+      <Sidebar />
+      
+      {/* Top Navigation */}
+      <nav className="md:ml-64 bg-cineverse-card/90 backdrop-blur-sm p-4 sticky top-0 z-40">
         <div className="flex justify-between items-center">
-          <h1 className="text-3xl font-bold text-gradient">CineVerse</h1>
-          <div className="flex items-center space-x-4">
+          <h1 className="md:hidden text-2xl font-bold text-gradient">CineVerse</h1>
+          <div className="flex items-center space-x-4 ml-auto">
             <img src={user.photoURL} alt="Profile" className="w-8 h-8 rounded-full" />
             <button
               onClick={handleLogout}
@@ -63,9 +67,26 @@ function App() {
           </div>
         </div>
       </nav>
-      <div className="p-8">
+
+      {/* Main Content */}
+      <div className="md:ml-64 p-8 pb-20 md:pb-8">
         <h2 className="text-4xl font-bold mb-6 text-gradient">Welcome to CineVerse</h2>
-        <p className="text-gray-300 text-lg">Your movie streaming platform is ready!</p>
+        <p className="text-gray-300 text-lg mb-8">Your movie streaming platform is ready!</p>
+        
+        {/* Sample Content Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+          {[1,2,3,4,5,6,7,8,9,10,11,12].map(i => (
+            <div key={i} className="cineverse-card overflow-hidden hover:scale-105 transition cursor-pointer">
+              <div className="aspect-[2/3] bg-gradient-to-br from-cineverse-accent to-purple-600 flex items-center justify-center">
+                <span className="text-2xl font-bold">M{i}</span>
+              </div>
+              <div className="p-3">
+                <h3 className="font-semibold truncate">Movie {i}</h3>
+                <p className="text-sm text-gray-400">2024</p>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
