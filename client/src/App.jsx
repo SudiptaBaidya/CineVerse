@@ -2,6 +2,7 @@ import { signInWithPopup, signOut } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, googleProvider } from './firebase';
 import Sidebar from './components/Sidebar';
+import TopNav from './components/TopNav';
 
 function App() {
   const [user] = useAuthState(auth);
@@ -55,24 +56,7 @@ function App() {
     <div className="min-h-screen text-white" style={{backgroundColor: '#0D0F15'}}>
       <Sidebar />
       
-      {/* Top Navigation */}
-      <nav className="lg:ml-64 backdrop-blur-sm p-4 sticky top-0 z-40" style={{backgroundColor: 'rgba(27, 29, 42, 0.9)'}}>
-        <div className="flex justify-between items-center">
-          <h1 className="lg:hidden text-2xl font-bold" style={{background: 'linear-gradient(to right, #E50914, #ef4444)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent'}}>CineVerse</h1>
-          <div className="flex items-center space-x-4 ml-auto">
-            <img src={user.photoURL} alt="Profile" className="w-8 h-8 rounded-full" />
-            <button
-              onClick={handleLogout}
-              className="px-4 py-2 rounded font-semibold transition-all duration-200"
-              style={{backgroundColor: '#E50914'}}
-              onMouseOver={(e) => e.target.style.backgroundColor = '#b8070f'}
-              onMouseOut={(e) => e.target.style.backgroundColor = '#E50914'}
-            >
-              Logout
-            </button>
-          </div>
-        </div>
-      </nav>
+      <TopNav user={user} onLogout={handleLogout} />
 
       {/* Main Content */}
       <div className="lg:ml-64 p-8 pb-20 lg:pb-8">
