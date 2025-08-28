@@ -152,7 +152,7 @@ function App() {
           </div>
         ) : (
           <>
-            <HeroBanner onMovieClick={handleMovieClick} />
+            <HeroBanner onMovieClick={handleMovieClick} favorites={favorites} onToggleFavorite={toggleFavorite} />
             <MovieSection title="You Might Like" type="recommendations" onMovieClick={handleMovieClick} favorites={favorites} onToggleFavorite={toggleFavorite} />
             <MovieSection title="Trending Now" type="trending" onMovieClick={handleMovieClick} favorites={favorites} onToggleFavorite={toggleFavorite} />
             <MovieSection title="Popular Movies" type="popular" onMovieClick={handleMovieClick} favorites={favorites} onToggleFavorite={toggleFavorite} />

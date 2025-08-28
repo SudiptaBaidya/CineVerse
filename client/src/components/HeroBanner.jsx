@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Play, Download, Star } from 'lucide-react';
+import { Play, Download, Star, Heart } from 'lucide-react';
 import { tmdbAPI } from '../services/tmdb';
 import './HeroBanner.css';
 
-const HeroBanner = ({ onMovieClick }) => {
+const HeroBanner = ({ onMovieClick, favorites = [], onToggleFavorite }) => {
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -110,6 +110,13 @@ const HeroBanner = ({ onMovieClick }) => {
             >
               <Play className="btn-icon" />
               Watch Now
+            </button>
+            <button 
+              className={`btn-favorite ${favorites.some(fav => fav.id === movie.id) ? 'favorited' : ''}`}
+              onClick={() => onToggleFavorite && onToggleFavorite(movie)}
+            >
+              <Heart className={`btn-icon ${favorites.some(fav => fav.id === movie.id) ? 'filled' : ''}`} />
+              {favorites.some(fav => fav.id === movie.id) ? 'Remove' : 'Favorite'}
             </button>
             <button className="btn-download">
               <Download className="btn-icon" />

@@ -26,6 +26,10 @@ const userSchema = new mongoose.Schema({
     movieId: Number,
     title: String,
     poster: String,
+    rating: String,
+    year: Number,
+    description: String,
+    backdrop: String,
     addedAt: {
       type: Date,
       default: Date.now

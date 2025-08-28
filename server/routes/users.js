@@ -94,7 +94,10 @@ router.get('/:userId/favorites', async (req, res) => {
         id: fav.movieId,
         title: fav.title,
         poster: fav.poster,
-        rating: fav.rating
+        rating: fav.rating,
+        year: fav.year,
+        description: fav.description,
+        backdrop: fav.backdrop
       }));
     
     res.json({ favorites });
@@ -106,7 +109,7 @@ router.get('/:userId/favorites', async (req, res) => {
 // Add movie to favorites
 router.post('/:userId/favorites', async (req, res) => {
   try {
-    const { id, title, poster, rating } = req.body;
+    const { id, title, poster, rating, year, description, backdrop } = req.body;
     if (!id || !title) {
       return res.status(400).json({ error: 'Movie ID and title are required' });
     }
@@ -127,6 +130,9 @@ router.post('/:userId/favorites', async (req, res) => {
       title,
       poster,
       rating,
+      year,
+      description,
+      backdrop,
       addedAt: new Date()
     });
 
