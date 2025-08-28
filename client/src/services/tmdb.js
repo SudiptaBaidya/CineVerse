@@ -1,24 +1,28 @@
-const API_KEY = '1fc967b1060217a3addb03a2e7d4d58c'; // Replace with your actual TMDB API key
+const API_KEY = '1fc967b1060217a3addb03a2e7d4d58c'; // TODO: Move to environment variables for production
 const BASE_URL = 'https://api.themoviedb.org/3';
 const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500';
 const PROFILE_BASE_URL = 'https://image.tmdb.org/t/p/w185';
+
+// Helper function to map movie data
+const mapMovie = (movie) => ({
+  id: movie.id,
+  title: movie.title,
+  poster: `${IMAGE_BASE_URL}${movie.poster_path}`,
+  backdrop: `https://image.tmdb.org/t/p/original${movie.backdrop_path}`,
+  rating: movie.vote_average?.toFixed(1),
+  year: new Date(movie.release_date).getFullYear(),
+  description: movie.overview,
+  popularity: movie.popularity?.toFixed(1)
+});
 
 export const tmdbAPI = {
   // Get trending movies
   getTrending: async () => {
     try {
       const response = await fetch(`${BASE_URL}/trending/movie/week?api_key=${API_KEY}`);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const data = await response.json();
-      return data.results?.map(movie => ({
-        id: movie.id,
-        title: movie.title,
-        poster: `${IMAGE_BASE_URL}${movie.poster_path}`,
-        backdrop: `https://image.tmdb.org/t/p/original${movie.backdrop_path}`,
-        rating: movie.vote_average?.toFixed(1),
-        year: new Date(movie.release_date).getFullYear(),
-        description: movie.overview,
-        popularity: movie.popularity?.toFixed(1)
-      })) || [];
+      return data.results?.map(mapMovie) || [];
     } catch (error) {
       console.error('Error fetching trending movies:', error);
       return [];
@@ -29,17 +33,9 @@ export const tmdbAPI = {
   getPopular: async () => {
     try {
       const response = await fetch(`${BASE_URL}/movie/popular?api_key=${API_KEY}`);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const data = await response.json();
-      return data.results?.map(movie => ({
-        id: movie.id,
-        title: movie.title,
-        poster: `${IMAGE_BASE_URL}${movie.poster_path}`,
-        backdrop: `https://image.tmdb.org/t/p/original${movie.backdrop_path}`,
-        rating: movie.vote_average?.toFixed(1),
-        year: new Date(movie.release_date).getFullYear(),
-        description: movie.overview,
-        popularity: movie.popularity?.toFixed(1)
-      })) || [];
+      return data.results?.map(mapMovie) || [];
     } catch (error) {
       console.error('Error fetching popular movies:', error);
       return [];
@@ -50,19 +46,24 @@ export const tmdbAPI = {
   getRecommendations: async (movieId = 550) => {
     try {
       const response = await fetch(`${BASE_URL}/movie/${movieId}/recommendations?api_key=${API_KEY}`);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const data = await response.json();
-      return data.results?.map(movie => ({
-        id: movie.id,
-        title: movie.title,
-        poster: `${IMAGE_BASE_URL}${movie.poster_path}`,
-        backdrop: `https://image.tmdb.org/t/p/original${movie.backdrop_path}`,
-        rating: movie.vote_average?.toFixed(1),
-        year: new Date(movie.release_date).getFullYear(),
-        description: movie.overview,
-        popularity: movie.popularity?.toFixed(1)
-      })) || [];
+      return data.results?.map(mapMovie) || [];
     } catch (error) {
       console.error('Error fetching recommendations:', error);
+      return [];
+    }
+  },
+
+  // Search movies
+  searchMovies: async (query) => {
+    try {
+      const response = await fetch(`${BASE_URL}/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(query)}`);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const data = await response.json();
+      return data.results?.map(mapMovie) || [];
+    } catch (error) {
+      console.error('Error searching movies:', error);
       return [];
     }
   },
@@ -71,6 +72,7 @@ export const tmdbAPI = {
   getMovieDetails: async (movieId) => {
     try {
       const response = await fetch(`${BASE_URL}/movie/${movieId}?api_key=${API_KEY}&append_to_response=credits,videos,similar`);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const movie = await response.json();
       
       return {

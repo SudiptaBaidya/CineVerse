@@ -2,9 +2,16 @@ import { Search } from 'lucide-react';
 import { useState } from 'react';
 import './TopNav.css';
 
-const TopNav = ({ user, onLogout }) => {
+const TopNav = ({ user, onLogout, onSearch }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [showMobileSearch, setShowMobileSearch] = useState(false);
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim() && onSearch) {
+      onSearch(searchQuery.trim());
+    }
+  };
 
   return (
     <nav className="topnav">
@@ -16,7 +23,7 @@ const TopNav = ({ user, onLogout }) => {
 
         {/* Center: Search Bar (Desktop) */}
         <div className="topnav-search-desktop">
-          <div className="search-container">
+          <form className="search-container" onSubmit={handleSearch}>
             <Search className="search-icon" />
             <input
               type="text"
@@ -25,7 +32,7 @@ const TopNav = ({ user, onLogout }) => {
               onChange={(e) => setSearchQuery(e.target.value)}
               className="search-input"
             />
-          </div>
+          </form>
         </div>
 
         {/* Right: User Avatar + Mobile Search */}
@@ -40,7 +47,13 @@ const TopNav = ({ user, onLogout }) => {
 
           {/* User Avatar */}
           <div className="user-avatar">
-            <img src={user?.photoURL} alt="Profile" />
+            <img 
+              src={user?.photoURL} 
+              alt="Profile" 
+              onError={(e) => {
+                e.target.style.display = 'none';
+              }}
+            />
           </div>
 
           {/* Logout Button */}
@@ -53,7 +66,7 @@ const TopNav = ({ user, onLogout }) => {
       {/* Mobile Search Bar (Expandable) */}
       {showMobileSearch && (
         <div className="mobile-search">
-          <div className="search-container">
+          <form className="search-container" onSubmit={handleSearch}>
             <Search className="search-icon" />
             <input
               type="text"
@@ -63,7 +76,7 @@ const TopNav = ({ user, onLogout }) => {
               className="search-input"
               autoFocus
             />
-          </div>
+          </form>
         </div>
       )}
     </nav>

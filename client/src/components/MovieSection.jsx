@@ -4,13 +4,19 @@ import { Play, Heart, Star } from 'lucide-react';
 import { tmdbAPI } from '../services/tmdb';
 import './MovieSection.css';
 
-const MovieSection = ({ title = "You Might Like", type = "recommendations", onMovieClick }) => {
+const MovieSection = ({ title = "You Might Like", type = "recommendations", movies, onMovieClick }) => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [hoveredMovie, setHoveredMovie] = useState(null);
   const [favorites, setFavorites] = useState(new Set());
 
   useEffect(() => {
+    if (movies) {
+      setMovies(movies);
+      setLoading(false);
+      return;
+    }
+
     const fetchMovies = async () => {
       setLoading(true);
       try {
@@ -53,7 +59,7 @@ const MovieSection = ({ title = "You Might Like", type = "recommendations", onMo
     };
 
     fetchMovies();
-  }, [type]);
+  }, [type, movies]);
 
   const toggleFavorite = (movieId) => {
     setFavorites(prev => {
@@ -69,7 +75,7 @@ const MovieSection = ({ title = "You Might Like", type = "recommendations", onMo
 
   const handleMovieClick = (movieId, event) => {
     event.preventDefault();
-    console.log('Movie clicked:', movieId); // Debug log
+    // Movie clicked
     if (onMovieClick) {
       onMovieClick(movieId);
     }

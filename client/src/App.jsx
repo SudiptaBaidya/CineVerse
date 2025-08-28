@@ -12,13 +12,15 @@ import './App.css';
 function App() {
   const [user] = useAuthState(auth);
   const [selectedMovieId, setSelectedMovieId] = useState(null);
+  const [searchResults, setSearchResults] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const signInWithGoogle = async () => {
     try {
       await signInWithPopup(auth, googleProvider);
     } catch (error) {
       console.error('Error signing in:', error);
-      alert('Sign in failed. Please try again.');
+      console.error('Sign in failed. Please try again.');
     }
   };
 
@@ -36,6 +38,22 @@ function App() {
 
   const handleCloseMovieDetails = () => {
     setSelectedMovieId(null);
+  };
+
+  const handleSearch = async (query) => {
+    setSearchQuery(query);
+    try {
+      const results = await tmdbAPI.searchMovies(query);
+      setSearchResults(results);
+    } catch (error) {
+      console.error('Search failed:', error);
+      setSearchResults([]);
+    }
+  };
+
+  const clearSearch = () => {
+    setSearchResults(null);
+    setSearchQuery('');
   };
 
   if (!user) {
@@ -63,22 +81,38 @@ function App() {
   return (
     <div className="app">
       <Sidebar />
-      <TopNav user={user} onLogout={handleLogout} />
+      <TopNav user={user} onLogout={handleLogout} onSearch={handleSearch} />
 
       {/* Main Content */}
       <div className="main-content">
-        <HeroBanner onMovieClick={handleMovieClick} />
-        
-        <MovieSection title="You Might Like" type="recommendations" onMovieClick={handleMovieClick} />
-        <MovieSection title="Trending Now" type="trending" onMovieClick={handleMovieClick} />
-        <MovieSection title="Popular Movies" type="popular" onMovieClick={handleMovieClick} />
+        {searchResults ? (
+          <div className="search-results">
+            <div className="search-header">
+              <h2>Search Results for "{searchQuery}"</h2>
+              <button onClick={clearSearch} className="clear-search">Clear Search</button>
+            </div>
+            <MovieSection 
+              title={`Found ${searchResults.length} movies`} 
+              movies={searchResults} 
+              onMovieClick={handleMovieClick} 
+            />
+          </div>
+        ) : (
+          <>
+            <HeroBanner onMovieClick={handleMovieClick} />
+            <MovieSection title="You Might Like" type="recommendations" onMovieClick={handleMovieClick} />
+            <MovieSection title="Trending Now" type="trending" onMovieClick={handleMovieClick} />
+            <MovieSection title="Popular Movies" type="popular" onMovieClick={handleMovieClick} />
+          </>
+        )}
       </div>
 
       {/* Movie Details Modal */}
       {selectedMovieId && (
         <MovieDetails 
           movieId={selectedMovieId} 
-          onClose={handleCloseMovieDetails} 
+          onClose={handleCloseMovieDetails}
+          onMovieClick={handleMovieClick}
         />
       )}
     </div>

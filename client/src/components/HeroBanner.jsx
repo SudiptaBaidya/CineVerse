@@ -12,12 +12,8 @@ const HeroBanner = ({ onMovieClick }) => {
     const fetchHeroMovie = async () => {
       try {
         const trendingMovies = await tmdbAPI.getTrending();
-        if (trendingMovies.length > 0) {
-          const heroMovie = {
-            ...trendingMovies[0],
-            id: trendingMovies[0].id // Ensure ID is available
-          };
-          setMovie(heroMovie);
+        if (trendingMovies?.length > 0) {
+          setMovie(trendingMovies[0]);
         }
       } catch (error) {
         console.error('Error fetching hero movie:', error);

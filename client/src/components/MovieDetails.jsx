@@ -4,7 +4,7 @@ import { Play, Download, Star, Clock, Youtube } from 'lucide-react';
 import { tmdbAPI } from '../services/tmdb';
 import './MovieDetails.css';
 
-const MovieDetails = ({ movieId, onClose }) => {
+const MovieDetails = ({ movieId, onClose, onMovieClick }) => {
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -13,12 +13,7 @@ const MovieDetails = ({ movieId, onClose }) => {
       setLoading(true);
       try {
         const movieData = await tmdbAPI.getMovieDetails(movieId);
-        console.log('Fetched movie data:', movieData);
-        console.log('Genres:', movieData?.genres);
-        console.log('Languages:', movieData?.languages);
-        console.log('Cast:', movieData?.cast);
-        console.log('Crew:', movieData?.crew);
-        console.log('Similar:', movieData?.similar);
+        // Debug logs removed for production
         setMovie(movieData);
       } catch (error) {
         console.error('Error fetching movie details:', error);
@@ -225,7 +220,11 @@ const MovieDetails = ({ movieId, onClose }) => {
               <h2>You Might Also Like</h2>
               <div className="similar-scroll">
                 {movie.similar.map(similarMovie => (
-                  <div key={similarMovie.id} className="similar-card">
+                  <div 
+                    key={similarMovie.id} 
+                    className="similar-card"
+                    onClick={() => onMovieClick && onMovieClick(similarMovie.id)}
+                  >
                     <img src={similarMovie.poster} alt={similarMovie.title} />
                     <div className="similar-info">
                       <h4>{similarMovie.title}</h4>
