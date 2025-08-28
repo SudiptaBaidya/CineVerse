@@ -1,19 +1,40 @@
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Play, Download, Star } from 'lucide-react';
+import { tmdbAPI } from '../services/tmdb';
 import './HeroBanner.css';
 
 const HeroBanner = () => {
-  // Sample movie data - replace with API data
-  const movie = {
-    title: "Avengers: Endgame",
-    year: "2019",
-    rating: "8.4",
-    description: "After the devastating events of Avengers: Infinity War, the universe is in ruins. With the help of remaining allies, the Avengers assemble once more in order to reverse Thanos' actions and restore balance to the universe.",
-    backdrop: "https://image.tmdb.org/t/p/original/7RyHsO4yDXtBv1zUU3mTpHeQ0d5.jpg",
-    poster: "https://image.tmdb.org/t/p/w500/or06FN3Dka5tukK1e9sl16pB3iy.jpg",
-    popularity: "95.2",
-    cast: ["Robert Downey Jr.", "Chris Evans", "Mark Ruffalo", "Chris Hemsworth"]
-  };
+  const [movie, setMovie] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchHeroMovie = async () => {
+      try {
+        const trendingMovies = await tmdbAPI.getTrending();
+        if (trendingMovies.length > 0) {
+          const heroMovie = trendingMovies[0]; // Use first trending movie
+          setMovie(heroMovie);
+        }
+      } catch (error) {
+        console.error('Error fetching hero movie:', error);
+        // Fallback movie data
+        setMovie({
+          title: "Avengers: Endgame",
+          year: "2019",
+          rating: "8.4",
+          description: "After the devastating events of Avengers: Infinity War, the universe is in ruins. With the help of remaining allies, the Avengers assemble once more in order to reverse Thanos' actions and restore balance to the universe.",
+          backdrop: "https://image.tmdb.org/t/p/original/7RyHsO4yDXtBv1zUU3mTpHeQ0d5.jpg",
+          poster: "https://image.tmdb.org/t/p/w500/or06FN3Dka5tukK1e9sl16pB3iy.jpg",
+          popularity: "95.2"
+        });
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchHeroMovie();
+  }, []);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -43,6 +64,16 @@ const HeroBanner = () => {
       transition: { duration: 0.8, delay: 0.4 }
     }
   };
+
+  if (loading || !movie) {
+    return (
+      <div className="hero-banner hero-loading">
+        <div className="loading-container">
+          <div className="loading-spinner"></div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <motion.div 
@@ -110,11 +141,6 @@ const HeroBanner = () => {
               <div className="info-item">
                 <span className="info-label">Popularity</span>
                 <span className="info-value">{movie.popularity}%</span>
-              </div>
-              
-              <div className="info-item">
-                <span className="info-label">Cast</span>
-                <span className="info-cast">{movie.cast.slice(0, 2).join(', ')}</span>
               </div>
             </div>
           </div>
