@@ -69,21 +69,19 @@
 /* Main Content */
 .main-content {
   margin-left: 0;
-  padding: 1rem;
+  padding: 0;
   padding-bottom: 6rem;
 }
 
-.welcome-title {
-  font-size: 1.875rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  color: #E50914;
+.content-section {
+  padding: 2rem 1rem;
 }
 
-.welcome-subtitle {
-  color: #d1d5db;
-  font-size: 1rem;
+.section-title {
+  font-size: 1.875rem;
+  font-weight: 700;
   margin-bottom: 1.5rem;
+  color: #E50914;
 }
 
 /* Movie Grid */
@@ -152,18 +150,12 @@
     font-size: 1.125rem;
   }
   
-  .main-content {
-    padding: 1.5rem;
-    padding-bottom: 6rem;
+  .content-section {
+    padding: 2rem 1.5rem;
   }
   
-  .welcome-title {
+  .section-title {
     font-size: 2.25rem;
-    margin-bottom: 1.5rem;
-  }
-  
-  .welcome-subtitle {
-    font-size: 1.125rem;
     margin-bottom: 2rem;
   }
   
@@ -197,8 +189,11 @@
 @media (min-width: 1024px) {
   .main-content {
     margin-left: 16rem;
-    padding: 2rem;
     padding-bottom: 2rem;
+  }
+  
+  .content-section {
+    padding: 2rem;
   }
   
   .movie-grid {
@@ -220,11 +215,5 @@
   
   .movie-info {
     padding: 0.75rem 0.5rem;
-  }
-  
-  /* Ensure touch targets are at least 44px */
-  .mobile-nav-item {
-    min-height: 44px;
-    min-width: 44px;
   }
 }

@@ -1,0 +1,261 @@
+.hero-banner {
+  position: relative;
+  width: 100%;
+  min-height: 70vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.3));
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+/* Left Side - Movie Details */
+.hero-details {
+  flex: 1;
+  max-width: 600px;
+}
+
+.hero-title {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 1rem;
+  line-height: 1.1;
+}
+
+.hero-meta {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.hero-year {
+  color: #D1D5DB;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.hero-rating {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #D1D5DB;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.star-icon {
+  width: 1.2rem;
+  height: 1.2rem;
+  color: #FFD700;
+  fill: #FFD700;
+}
+
+.hero-description {
+  color: #9CA3AF;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.btn-watch,
+.btn-download {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  min-width: 140px;
+  justify-content: center;
+}
+
+.btn-watch {
+  background-color: #E50914;
+  color: #ffffff;
+}
+
+.btn-watch:hover {
+  background-color: #B8070F;
+  transform: scale(1.05);
+}
+
+.btn-download {
+  background-color: transparent;
+  color: #ffffff;
+  border: 2px solid #ffffff;
+}
+
+.btn-download:hover {
+  border-color: #E50914;
+  box-shadow: 0 0 20px rgba(229, 9, 20, 0.3);
+}
+
+.btn-icon {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+/* Right Side - Info Card */
+.hero-info-card {
+  flex-shrink: 0;
+  width: 280px;
+  background: rgba(27, 29, 42, 0.8);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  border: 1px solid #2C2C2C;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.hero-info-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 12px 40px rgba(229, 9, 20, 0.2);
+}
+
+.info-card-content {
+  padding: 1.5rem;
+}
+
+.info-poster {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.info-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.info-label {
+  color: #9CA3AF;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.info-value {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.info-rating {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.info-star {
+  width: 1rem;
+  height: 1rem;
+  color: #FFD700;
+  fill: #FFD700;
+}
+
+.info-cast {
+  color: #9CA3AF;
+  font-size: 0.875rem;
+  text-align: right;
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .hero-content {
+    flex-direction: column;
+    padding: 1.5rem 1rem;
+    gap: 1.5rem;
+  }
+  
+  .hero-info-card {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  .hero-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .btn-watch,
+  .btn-download {
+    width: 100%;
+    min-width: auto;
+  }
+  
+  .hero-description {
+    -webkit-line-clamp: 4;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-banner {
+    min-height: 60vh;
+  }
+  
+  .hero-content {
+    padding: 1rem;
+  }
+  
+  .info-poster {
+    height: 250px;
+  }
+  
+  .hero-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}

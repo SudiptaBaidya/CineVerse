@@ -3,6 +3,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, googleProvider } from './firebase';
 import Sidebar from './components/Sidebar';
 import TopNav from './components/TopNav';
+import HeroBanner from './components/HeroBanner';
 import './App.css';
 
 function App() {
@@ -54,22 +55,25 @@ function App() {
 
       {/* Main Content */}
       <div className="main-content">
-        <h2 className="welcome-title">Welcome to CineVerse</h2>
-        <p className="welcome-subtitle">Your movie streaming platform is ready!</p>
+        <HeroBanner />
         
-        {/* Sample Content Grid */}
-        <div className="movie-grid">
-          {[1,2,3,4,5,6,7,8,9,10,11,12].map(i => (
-            <div key={i} className="movie-card">
-              <div className="movie-poster">
-                <span className="movie-number">M{i}</span>
+        <div className="content-section">
+          <h2 className="section-title">Trending Movies</h2>
+          
+          {/* Sample Content Grid */}
+          <div className="movie-grid">
+            {[1,2,3,4,5,6,7,8,9,10,11,12].map(i => (
+              <div key={i} className="movie-card">
+                <div className="movie-poster">
+                  <span className="movie-number">M{i}</span>
+                </div>
+                <div className="movie-info">
+                  <h3 className="movie-title">Movie {i}</h3>
+                  <p className="movie-year">2024</p>
+                </div>
               </div>
-              <div className="movie-info">
-                <h3 className="movie-title">Movie {i}</h3>
-                <p className="movie-year">2024</p>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </div>
