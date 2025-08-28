@@ -6,7 +6,7 @@ const TopNav = ({ user, onLogout }) => {
   const [showMobileSearch, setShowMobileSearch] = useState(false);
 
   return (
-    <nav className="lg:ml-64 backdrop-blur-sm p-4 sticky top-0 z-40" style={{backgroundColor: 'rgba(27, 29, 42, 0.9)'}}>
+    <nav className="lg:ml-64 bg-cineverse-card/90 backdrop-blur-sm p-4 sticky top-0 z-40">
       <div className="flex items-center justify-between">
         {/* Left: Logo */}
         <div className="flex items-center">
@@ -26,14 +26,7 @@ const TopNav = ({ user, onLogout }) => {
               placeholder="Search movies, shows..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 rounded-full text-white placeholder-gray-400 focus:outline-none focus:ring-2 transition-all"
-              style={{
-                backgroundColor: '#1B1D2A',
-                border: '1px solid #374151',
-                focusRingColor: '#E50914'
-              }}
-              onFocus={(e) => e.target.style.borderColor = '#E50914'}
-              onBlur={(e) => e.target.style.borderColor = '#374151'}
+              className="w-full pl-10 pr-4 py-2 rounded-full bg-cineverse-card border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:border-cineverse-accent focus:ring-2 focus:ring-cineverse-accent/50 transition-all"
             />
           </div>
         </div>
@@ -53,17 +46,14 @@ const TopNav = ({ user, onLogout }) => {
             <img 
               src={user?.photoURL} 
               alt="Profile" 
-              className="w-8 h-8 lg:w-10 lg:h-10 rounded-full border-2 border-gray-600 hover:border-red-500 transition-colors cursor-pointer"
+              className="w-8 h-8 lg:w-10 lg:h-10 rounded-full border-2 border-gray-600 hover:border-cineverse-accent transition-colors cursor-pointer"
             />
           </div>
 
           {/* Logout Button */}
           <button
             onClick={onLogout}
-            className="hidden lg:block px-4 py-2 rounded font-semibold transition-all duration-200 text-sm"
-            style={{backgroundColor: '#E50914'}}
-            onMouseOver={(e) => e.target.style.backgroundColor = '#b8070f'}
-            onMouseOut={(e) => e.target.style.backgroundColor = '#E50914'}
+            className="hidden lg:block px-4 py-2 rounded font-semibold text-sm bg-cineverse-accent hover:bg-cineverse-accent-hover text-white transition-all duration-200"
           >
             Logout
           </button>
@@ -82,13 +72,7 @@ const TopNav = ({ user, onLogout }) => {
               placeholder="Search movies, shows..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 rounded-full text-white placeholder-gray-400 focus:outline-none focus:ring-2 transition-all"
-              style={{
-                backgroundColor: '#1B1D2A',
-                border: '1px solid #374151'
-              }}
-              onFocus={(e) => e.target.style.borderColor = '#E50914'}
-              onBlur={(e) => e.target.style.borderColor = '#374151'}
+              className="w-full pl-10 pr-4 py-2 rounded-full bg-cineverse-card border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:border-cineverse-accent focus:ring-2 focus:ring-cineverse-accent/50 transition-all"
               autoFocus
             />
           </div>

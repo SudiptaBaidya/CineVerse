@@ -17,6 +17,9 @@ export default {
       fontFamily: {
         'sans': ['Inter', 'system-ui', 'sans-serif'],
       },
+      backgroundColor: {
+        'cineverse-card-90': 'rgba(27, 29, 42, 0.9)',
+      }
     },
   },
   plugins: [],

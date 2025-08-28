@@ -26,18 +26,15 @@ function App() {
 
   if (!user) {
     return (
-      <div className="min-h-screen flex items-center justify-center" style={{backgroundColor: '#0D0F15'}}>
-        <div className="p-8 max-w-md w-full rounded-lg" style={{backgroundColor: '#1B1D2A'}}>
+      <div className="min-h-screen flex items-center justify-center bg-cineverse-bg">
+        <div className="p-8 max-w-md w-full rounded-lg bg-cineverse-card">
           <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold mb-2" style={{background: 'linear-gradient(to right, #E50914, #ef4444)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent'}}>CineVerse</h1>
+            <h1 className="text-4xl font-bold mb-2 bg-gradient-to-r from-cineverse-accent to-red-400 bg-clip-text text-transparent">CineVerse</h1>
             <p className="text-gray-300">Your gateway to unlimited entertainment</p>
           </div>
           <button
             onClick={signInWithGoogle}
-            className="w-full py-4 text-lg flex items-center justify-center space-x-3 rounded-lg font-semibold transition-all duration-200"
-            style={{backgroundColor: '#E50914'}}
-            onMouseOver={(e) => e.target.style.backgroundColor = '#b8070f'}
-            onMouseOut={(e) => e.target.style.backgroundColor = '#E50914'}
+            className="w-full py-4 text-lg flex items-center justify-center space-x-3 rounded-lg font-semibold bg-cineverse-accent hover:bg-cineverse-accent-hover text-white transition-all duration-200"
           >
             <svg className="w-5 h-5" viewBox="0 0 24 24">
               <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -53,21 +50,20 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen text-white" style={{backgroundColor: '#0D0F15'}}>
+    <div className="min-h-screen bg-cineverse-bg text-white">
       <Sidebar />
-      
       <TopNav user={user} onLogout={handleLogout} />
 
       {/* Main Content */}
       <div className="lg:ml-64 p-8 pb-20 lg:pb-8">
-        <h2 className="text-4xl font-bold mb-6" style={{background: 'linear-gradient(to right, #E50914, #ef4444)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent'}}>Welcome to CineVerse</h2>
+        <h2 className="text-4xl font-bold mb-6 bg-gradient-to-r from-cineverse-accent to-red-400 bg-clip-text text-transparent">Welcome to CineVerse</h2>
         <p className="text-gray-300 text-lg mb-8">Your movie streaming platform is ready!</p>
         
         {/* Sample Content Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
           {[1,2,3,4,5,6,7,8,9,10,11,12].map(i => (
-            <div key={i} className="rounded-lg overflow-hidden hover:scale-105 transition cursor-pointer" style={{backgroundColor: '#1B1D2A'}}>
-              <div className="aspect-[2/3] flex items-center justify-center" style={{background: `linear-gradient(to bottom right, #E50914, #9333ea)`}}>
+            <div key={i} className="rounded-lg overflow-hidden hover:scale-105 transition cursor-pointer bg-cineverse-card">
+              <div className="aspect-[2/3] flex items-center justify-center bg-gradient-to-br from-cineverse-accent to-purple-600">
                 <span className="text-2xl font-bold">M{i}</span>
               </div>
               <div className="p-3">
