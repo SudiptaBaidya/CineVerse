@@ -2,11 +2,35 @@ const express = require('express');
 const User = require('../models/User');
 const router = express.Router();
 
+// Create or get user
+router.post('/', async (req, res) => {
+  try {
+    const { uid, email, displayName, photoURL } = req.body;
+    
+    let user = await User.findOne({ uid });
+    if (!user) {
+      user = new User({ uid, email, displayName, photoURL });
+      await user.save();
+    }
+    
+    res.json({ success: true, user });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // Get user search history
 router.get('/:userId/search-history', async (req, res) => {
   try {
-    const user = await User.findOne({ uid: req.params.userId });
+    let user = await User.findOne({ uid: req.params.userId });
     if (!user) {
+      // Create user if doesn't exist
+      user = new User({ 
+        uid: req.params.userId, 
+        email: 'user@example.com', 
+        displayName: 'User' 
+      });
+      await user.save();
       return res.json({ searchHistory: [] });
     }
     
@@ -83,8 +107,15 @@ router.delete('/:userId/search-history/:query', async (req, res) => {
 // Get user favorites
 router.get('/:userId/favorites', async (req, res) => {
   try {
-    const user = await User.findOne({ uid: req.params.userId });
+    let user = await User.findOne({ uid: req.params.userId });
     if (!user) {
+      // Create user if doesn't exist
+      user = new User({ 
+        uid: req.params.userId, 
+        email: 'user@example.com', 
+        displayName: 'User' 
+      });
+      await user.save();
       return res.json({ favorites: [] });
     }
     
