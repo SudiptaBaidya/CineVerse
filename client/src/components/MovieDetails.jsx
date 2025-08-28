@@ -42,11 +42,9 @@ const MovieDetails = ({ movieId, onClose }) => {
   if (loading) {
     return (
       <div className="movie-details-overlay">
-        <div className="movie-details-container">
-          <div className="loading-container">
-            <div className="loading-spinner"></div>
-            <p>Loading movie details...</p>
-          </div>
+        <div className="loading-container">
+          <div className="loading-spinner"></div>
+          <p>Loading movie details...</p>
         </div>
       </div>
     );
@@ -55,11 +53,9 @@ const MovieDetails = ({ movieId, onClose }) => {
   if (!movie) {
     return (
       <div className="movie-details-overlay">
-        <div className="movie-details-container">
-          <div className="error-container">
-            <p>Movie not found</p>
-            <button onClick={onClose} className="btn-close">Close</button>
-          </div>
+        <div className="error-container">
+          <p>Movie not found</p>
+          <button onClick={onClose} className="btn-watch">Close</button>
         </div>
       </div>
     );
