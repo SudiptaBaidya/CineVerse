@@ -236,10 +236,13 @@
 /* Content Sections */
 .movie-content {
   padding: 2rem;
+  color: #ffffff;
 }
 
 .movie-content section {
   margin-bottom: 2.5rem;
+  display: block;
+  width: 100%;
 }
 
 .movie-content h2 {
@@ -247,6 +250,7 @@
   font-weight: 700;
   color: #ffffff;
   margin-bottom: 1rem;
+  display: block;
 }
 
 .movie-content h3 {
@@ -254,30 +258,48 @@
   font-weight: 600;
   color: #ffffff;
   margin-bottom: 0.5rem;
+  display: block;
 }
 
 /* Overview Section */
+.overview-section {
+  display: block !important;
+}
+
+.description {
+  display: block;
+}
+
 .description p {
   color: #D1D5DB;
   line-height: 1.6;
   margin-bottom: 1rem;
+  display: block;
 }
 
 /* Tags Section */
 .tags-section {
-  display: grid;
+  display: grid !important;
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
+  width: 100%;
+}
+
+.genres,
+.languages {
+  display: block;
 }
 
 .tag-list {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
+  margin-top: 0.5rem;
 }
 
 .genre-tag,
 .language-tag {
+  display: inline-block;
   padding: 0.5rem 1rem;
   border-radius: 20px;
   font-size: 0.875rem;
@@ -297,6 +319,13 @@
 }
 
 /* Cast & Crew Sections */
+.cast-section,
+.crew-section,
+.similar-section {
+  display: block !important;
+  width: 100%;
+}
+
 .cast-scroll,
 .crew-scroll,
 .similar-scroll {
@@ -305,6 +334,7 @@
   overflow-x: auto;
   padding: 0.5rem 0;
   scroll-behavior: smooth;
+  width: 100%;
 }
 
 .cast-scroll::-webkit-scrollbar,
@@ -331,6 +361,7 @@
   flex-shrink: 0;
   width: 120px;
   text-align: center;
+  display: block;
 }
 
 .cast-image,
@@ -359,18 +390,25 @@
   text-align: center;
 }
 
+.cast-info,
+.crew-info {
+  display: block;
+}
+
 .cast-info h4,
 .crew-info h4 {
   font-size: 0.875rem;
   font-weight: 600;
   color: #ffffff;
   margin-bottom: 0.25rem;
+  display: block;
 }
 
 .cast-info p,
 .crew-info p {
   font-size: 0.75rem;
   color: #9CA3AF;
+  display: block;
 }
 
 /* Similar Movies */
@@ -379,6 +417,7 @@
   width: 150px;
   cursor: pointer;
   transition: transform 0.3s;
+  display: block;
 }
 
 .similar-card:hover {
@@ -391,6 +430,11 @@
   object-fit: cover;
   border-radius: 8px;
   margin-bottom: 0.5rem;
+  display: block;
+}
+
+.similar-info {
+  display: block;
 }
 
 .similar-info h4 {
@@ -401,6 +445,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  display: block;
 }
 
 .similar-rating {
