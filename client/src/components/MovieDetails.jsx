@@ -27,4 +27,219 @@ const MovieDetails = ({ movieId, onClose }) => {
     }
   }, [movieId]);
 
-  const formatRuntime = (minutes) => {\n    const hours = Math.floor(minutes / 60);\n    const mins = minutes % 60;\n    return `${hours}h ${mins}m`;\n  };\n\n  const openTrailer = () => {\n    if (movie.trailer) {\n      window.open(`https://www.youtube.com/watch?v=${movie.trailer}`, '_blank');\n    }\n  };\n\n  if (loading) {\n    return (\n      <div className=\"movie-details-overlay\">\n        <div className=\"movie-details-container\">\n          <div className=\"loading-container\">\n            <div className=\"loading-spinner\"></div>\n            <p>Loading movie details...</p>\n          </div>\n        </div>\n      </div>\n    );\n  }\n\n  if (!movie) {\n    return (\n      <div className=\"movie-details-overlay\">\n        <div className=\"movie-details-container\">\n          <div className=\"error-container\">\n            <p>Movie not found</p>\n            <button onClick={onClose} className=\"btn-close\">Close</button>\n          </div>\n        </div>\n      </div>\n    );\n  }\n\n  return (\n    <motion.div \n      className=\"movie-details-overlay\"\n      initial={{ opacity: 0 }}\n      animate={{ opacity: 1 }}\n      exit={{ opacity: 0 }}\n      onClick={onClose}\n    >\n      <motion.div \n        className=\"movie-details-container\"\n        initial={{ scale: 0.8, opacity: 0 }}\n        animate={{ scale: 1, opacity: 1 }}\n        exit={{ scale: 0.8, opacity: 0 }}\n        onClick={(e) => e.stopPropagation()}\n      >\n        <button className=\"btn-close-x\" onClick={onClose}>×</button>\n        \n        {/* Hero Section */}\n        <div className=\"movie-hero\" style={{ backgroundImage: `url(${movie.backdrop})` }}>\n          <div className=\"hero-overlay\"></div>\n          <div className=\"hero-content\">\n            <div className=\"movie-poster\">\n              <img src={movie.poster} alt={movie.title} />\n            </div>\n            <div className=\"movie-info\">\n              <h1 className=\"movie-title\">{movie.title}</h1>\n              <div className=\"movie-meta\">\n                <span className=\"year\">{movie.year}</span>\n                <div className=\"rating\">\n                  <Star className=\"star-icon\" />\n                  <span>{movie.rating}</span>\n                  <span className=\"vote-count\">({movie.voteCount} votes)</span>\n                </div>\n                {movie.runtime && (\n                  <div className=\"runtime\">\n                    <Clock className=\"clock-icon\" />\n                    <span>{formatRuntime(movie.runtime)}</span>\n                  </div>\n                )}\n              </div>\n              <div className=\"action-buttons\">\n                <button className=\"btn-watch\">\n                  <Play className=\"btn-icon\" />\n                  Watch Now\n                </button>\n                <button className=\"btn-download\">\n                  <Download className=\"btn-icon\" />\n                  Download\n                </button>\n                {movie.trailer && (\n                  <button className=\"btn-trailer\" onClick={openTrailer}>\n                    <Youtube className=\"btn-icon\" />\n                    Watch Trailer\n                  </button>\n                )}\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div className=\"movie-content\">\n          {/* Overview */}\n          <section className=\"overview-section\">\n            <h2>Overview</h2>\n            <div className=\"description\">\n              <p className={showFullDescription ? 'expanded' : 'collapsed'}>\n                {movie.description}\n              </p>\n              {movie.description && movie.description.length > 200 && (\n                <button \n                  className=\"btn-read-more\"\n                  onClick={() => setShowFullDescription(!showFullDescription)}\n                >\n                  {showFullDescription ? (\n                    <><ChevronUp className=\"chevron\" /> Show Less</>\n                  ) : (\n                    <><ChevronDown className=\"chevron\" /> Read More</>\n                  )}\n                </button>\n              )}\n            </div>\n          </section>\n\n          {/* Genres & Languages */}\n          <section className=\"tags-section\">\n            <div className=\"genres\">\n              <h3>Genres</h3>\n              <div className=\"tag-list\">\n                {movie.genres.map(genre => (\n                  <span key={genre.id} className=\"genre-tag\">{genre.name}</span>\n                ))}\n              </div>\n            </div>\n            <div className=\"languages\">\n              <h3>Languages</h3>\n              <div className=\"tag-list\">\n                {movie.languages.map(lang => (\n                  <span key={lang.iso_639_1} className=\"language-tag\">{lang.english_name}</span>\n                ))}\n              </div>\n            </div>\n          </section>\n\n          {/* Cast */}\n          {movie.cast.length > 0 && (\n            <section className=\"cast-section\">\n              <h2>Cast</h2>\n              <div className=\"cast-scroll\">\n                {movie.cast.map(person => (\n                  <div key={person.id} className=\"cast-card\">\n                    <div className=\"cast-image\">\n                      {person.profileImage ? (\n                        <img src={person.profileImage} alt={person.name} />\n                      ) : (\n                        <div className=\"no-image\">No Image</div>\n                      )}\n                    </div>\n                    <div className=\"cast-info\">\n                      <h4>{person.name}</h4>\n                      <p>{person.character}</p>\n                    </div>\n                  </div>\n                ))}\n              </div>\n            </section>\n          )}\n\n          {/* Crew */}\n          {movie.crew.length > 0 && (\n            <section className=\"crew-section\">\n              <h2>Crew</h2>\n              <div className=\"crew-scroll\">\n                {movie.crew.map(person => (\n                  <div key={`${person.id}-${person.job}`} className=\"crew-card\">\n                    <div className=\"crew-image\">\n                      {person.profileImage ? (\n                        <img src={person.profileImage} alt={person.name} />\n                      ) : (\n                        <div className=\"no-image\">No Image</div>\n                      )}\n                    </div>\n                    <div className=\"crew-info\">\n                      <h4>{person.name}</h4>\n                      <p>{person.job}</p>\n                    </div>\n                  </div>\n                ))}\n              </div>\n            </section>\n          )}\n\n          {/* Similar Movies */}\n          {movie.similar.length > 0 && (\n            <section className=\"similar-section\">\n              <h2>You Might Also Like</h2>\n              <div className=\"similar-scroll\">\n                {movie.similar.map(similarMovie => (\n                  <div key={similarMovie.id} className=\"similar-card\">\n                    <img src={similarMovie.poster} alt={similarMovie.title} />\n                    <div className=\"similar-info\">\n                      <h4>{similarMovie.title}</h4>\n                      <div className=\"similar-rating\">\n                        <Star className=\"star-icon\" />\n                        <span>{similarMovie.rating}</span>\n                      </div>\n                    </div>\n                  </div>\n                ))}\n              </div>\n            </section>\n          )}\n        </div>\n      </motion.div>\n    </motion.div>\n  );\n};\n\nexport default MovieDetails;
+  const formatRuntime = (minutes) => {
+    const hours = Math.floor(minutes / 60);
+    const mins = minutes % 60;
+    return `${hours}h ${mins}m`;
+  };
+
+  const openTrailer = () => {
+    if (movie.trailer) {
+      window.open(`https://www.youtube.com/watch?v=${movie.trailer}`, '_blank');
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="movie-details-overlay">
+        <div className="movie-details-container">
+          <div className="loading-container">
+            <div className="loading-spinner"></div>
+            <p>Loading movie details...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!movie) {
+    return (
+      <div className="movie-details-overlay">
+        <div className="movie-details-container">
+          <div className="error-container">
+            <p>Movie not found</p>
+            <button onClick={onClose} className="btn-close">Close</button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <motion.div 
+      className="movie-details-overlay"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      onClick={onClose}
+    >
+      <motion.div 
+        className="movie-details-container"
+        initial={{ scale: 0.8, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.8, opacity: 0 }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button className="btn-close-x" onClick={onClose}>×</button>
+        
+        {/* Hero Section */}
+        <div className="movie-hero" style={{ backgroundImage: `url(${movie.backdrop})` }}>
+          <div className="hero-overlay"></div>
+          <div className="hero-content">
+            <div className="movie-poster">
+              <img src={movie.poster} alt={movie.title} />
+            </div>
+            <div className="movie-info">
+              <h1 className="movie-title">{movie.title}</h1>
+              <div className="movie-meta">
+                <span className="year">{movie.year}</span>
+                <div className="rating">
+                  <Star className="star-icon" />
+                  <span>{movie.rating}</span>
+                  <span className="vote-count">({movie.voteCount} votes)</span>
+                </div>
+                {movie.runtime && (
+                  <div className="runtime">
+                    <Clock className="clock-icon" />
+                    <span>{formatRuntime(movie.runtime)}</span>
+                  </div>
+                )}
+              </div>
+              <div className="action-buttons">
+                <button className="btn-watch">
+                  <Play className="btn-icon" />
+                  Watch Now
+                </button>
+                <button className="btn-download">
+                  <Download className="btn-icon" />
+                  Download
+                </button>
+                {movie.trailer && (
+                  <button className="btn-trailer" onClick={openTrailer}>
+                    <Youtube className="btn-icon" />
+                    Watch Trailer
+                  </button>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="movie-content">
+          {/* Overview */}
+          <section className="overview-section">
+            <h2>Overview</h2>
+            <div className="description">
+              <p className={showFullDescription ? 'expanded' : 'collapsed'}>
+                {movie.description}
+              </p>
+              {movie.description && movie.description.length > 200 && (
+                <button 
+                  className="btn-read-more"
+                  onClick={() => setShowFullDescription(!showFullDescription)}
+                >
+                  {showFullDescription ? (
+                    <><ChevronUp className="chevron" /> Show Less</>
+                  ) : (
+                    <><ChevronDown className="chevron" /> Read More</>
+                  )}
+                </button>
+              )}
+            </div>
+          </section>
+
+          {/* Genres & Languages */}
+          <section className="tags-section">
+            <div className="genres">
+              <h3>Genres</h3>
+              <div className="tag-list">
+                {movie.genres.map(genre => (
+                  <span key={genre.id} className="genre-tag">{genre.name}</span>
+                ))}
+              </div>
+            </div>
+            <div className="languages">
+              <h3>Languages</h3>
+              <div className="tag-list">
+                {movie.languages.map(lang => (
+                  <span key={lang.iso_639_1} className="language-tag">{lang.english_name}</span>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* Cast */}
+          {movie.cast.length > 0 && (
+            <section className="cast-section">
+              <h2>Cast</h2>
+              <div className="cast-scroll">
+                {movie.cast.map(person => (
+                  <div key={person.id} className="cast-card">
+                    <div className="cast-image">
+                      {person.profileImage ? (
+                        <img src={person.profileImage} alt={person.name} />
+                      ) : (
+                        <div className="no-image">No Image</div>
+                      )}
+                    </div>
+                    <div className="cast-info">
+                      <h4>{person.name}</h4>
+                      <p>{person.character}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* Crew */}
+          {movie.crew.length > 0 && (
+            <section className="crew-section">
+              <h2>Crew</h2>
+              <div className="crew-scroll">
+                {movie.crew.map(person => (
+                  <div key={`${person.id}-${person.job}`} className="crew-card">
+                    <div className="crew-image">
+                      {person.profileImage ? (
+                        <img src={person.profileImage} alt={person.name} />
+                      ) : (
+                        <div className="no-image">No Image</div>
+                      )}
+                    </div>
+                    <div className="crew-info">
+                      <h4>{person.name}</h4>
+                      <p>{person.job}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* Similar Movies */}
+          {movie.similar.length > 0 && (
+            <section className="similar-section">
+              <h2>You Might Also Like</h2>
+              <div className="similar-scroll">
+                {movie.similar.map(similarMovie => (
+                  <div key={similarMovie.id} className="similar-card">
+                    <img src={similarMovie.poster} alt={similarMovie.title} />
+                    <div className="similar-info">
+                      <h4>{similarMovie.title}</h4>
+                      <div className="similar-rating">
+                        <Star className="star-icon" />
+                        <span>{similarMovie.rating}</span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+};
+
+export default MovieDetails;
