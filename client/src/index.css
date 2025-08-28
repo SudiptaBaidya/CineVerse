@@ -41,16 +41,32 @@
   }
 }
 
-@layer components {
-  .cineverse-card {
-    @apply bg-cineverse-card rounded-lg border border-gray-700 hover:border-cineverse-accent transition-all duration-300;
+@layer utilities {
+  .bg-cineverse-bg {
+    background-color: #0D0F15;
   }
-
-  .cineverse-button {
-    @apply bg-cineverse-accent hover:bg-cineverse-accent-hover text-white font-semibold py-2 px-4 rounded-lg transition-all duration-200;
+  
+  .bg-cineverse-card {
+    background-color: #1B1D2A;
   }
-
-  .text-gradient {
-    @apply bg-gradient-to-r from-cineverse-accent to-red-400 bg-clip-text text-transparent;
+  
+  .bg-cineverse-accent {
+    background-color: #E50914;
+  }
+  
+  .bg-cineverse-accent-hover {
+    background-color: #b8070f;
+  }
+  
+  .text-cineverse-accent {
+    color: #E50914;
+  }
+  
+  .border-cineverse-accent {
+    border-color: #E50914;
+  }
+  
+  .ring-cineverse-accent {
+    --tw-ring-color: #E50914;
   }
 }
