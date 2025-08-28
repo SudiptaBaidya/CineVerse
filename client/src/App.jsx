@@ -24,7 +24,7 @@ function App() {
 
   if (!user) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-900">
+      <div className="min-h-screen flex items-center justify-center bg-cineverse-bg">
         <div className="cineverse-card p-8 max-w-md w-full">
           <div className="text-center mb-8">
             <h1 className="text-4xl font-bold text-gradient mb-2">CineVerse</h1>
@@ -48,8 +48,8 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-900 text-white">
-      <nav className="bg-slate-800/90 backdrop-blur-sm p-4 sticky top-0 z-50">
+    <div className="min-h-screen bg-cineverse-bg text-white">
+      <nav className="bg-cineverse-card/90 backdrop-blur-sm p-4 sticky top-0 z-50">
         <div className="flex justify-between items-center">
           <h1 className="text-3xl font-bold text-gradient">CineVerse</h1>
           <div className="flex items-center space-x-4">
