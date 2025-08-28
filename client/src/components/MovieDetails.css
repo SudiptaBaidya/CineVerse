@@ -91,11 +91,12 @@
   right: 0;
   bottom: 0;
   background: linear-gradient(to top, rgba(13,15,21,0.95), rgba(13,15,21,0.4));
+  z-index: 1; /* Ensure overlay is behind content */
 }
 
 .hero-content {
   position: relative;
-  z-index: 2;
+  z-index: 3; /* Ensure content is above overlay */
   display: flex;
   gap: 2rem;
   padding: 2rem;
@@ -104,6 +105,8 @@
 
 .movie-poster {
   flex-shrink: 0;
+  position: relative; /* Ensure poster has proper positioning context */
+  z-index: 2; /* Ensure poster is above overlay but below content if needed */
 }
 
 .movie-poster img {
@@ -112,6 +115,8 @@
   object-fit: cover;
   border-radius: 8px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  position: relative; /* Ensure image is properly positioned */
+  z-index: 1; /* Ensure image is above parent container */
 }
 
 .movie-info {
