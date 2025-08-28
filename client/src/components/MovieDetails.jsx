@@ -1,19 +1,19 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Play, Download, Star, Clock, Youtube, ChevronDown, ChevronUp } from 'lucide-react';
+import { Play, Download, Star, Clock, Youtube } from 'lucide-react';
 import { tmdbAPI } from '../services/tmdb';
 import './MovieDetails.css';
 
 const MovieDetails = ({ movieId, onClose }) => {
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [showFullDescription, setShowFullDescription] = useState(false);
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
       setLoading(true);
       try {
         const movieData = await tmdbAPI.getMovieDetails(movieId);
+        console.log('Fetched movie data:', movieData); // Debug log to see what data we get
         setMovie(movieData);
       } catch (error) {
         console.error('Error fetching movie details:', error);
@@ -28,13 +28,14 @@ const MovieDetails = ({ movieId, onClose }) => {
   }, [movieId]);
 
   const formatRuntime = (minutes) => {
+    if (!minutes) return '';
     const hours = Math.floor(minutes / 60);
     const mins = minutes % 60;
     return `${hours}h ${mins}m`;
   };
 
   const openTrailer = () => {
-    if (movie.trailer) {
+    if (movie?.trailer) {
       window.open(`https://www.youtube.com/watch?v=${movie.trailer}`, '_blank');
     }
   };
@@ -126,46 +127,38 @@ const MovieDetails = ({ movieId, onClose }) => {
           <section className="overview-section">
             <h2>Overview</h2>
             <div className="description">
-              <p className={showFullDescription ? 'expanded' : 'collapsed'}>
-                {movie.description}
-              </p>
-              {movie.description && movie.description.length > 200 && (
-                <button 
-                  className="btn-read-more"
-                  onClick={() => setShowFullDescription(!showFullDescription)}
-                >
-                  {showFullDescription ? (
-                    <><ChevronUp className="chevron" /> Show Less</>
-                  ) : (
-                    <><ChevronDown className="chevron" /> Read More</>
-                  )}
-                </button>
-              )}
+              <p>{movie.description || 'No description available.'}</p>
             </div>
           </section>
 
           {/* Genres & Languages */}
-          <section className="tags-section">
-            <div className="genres">
-              <h3>Genres</h3>
-              <div className="tag-list">
-                {movie.genres.map(genre => (
-                  <span key={genre.id} className="genre-tag">{genre.name}</span>
-                ))}
-              </div>
-            </div>
-            <div className="languages">
-              <h3>Languages</h3>
-              <div className="tag-list">
-                {movie.languages.map(lang => (
-                  <span key={lang.iso_639_1} className="language-tag">{lang.english_name}</span>
-                ))}
-              </div>
-            </div>
-          </section>
+          {(movie.genres?.length > 0 || movie.languages?.length > 0) && (
+            <section className="tags-section">
+              {movie.genres?.length > 0 && (
+                <div className="genres">
+                  <h3>Genres</h3>
+                  <div className="tag-list">
+                    {movie.genres.map(genre => (
+                      <span key={genre.id} className="genre-tag">{genre.name}</span>
+                    ))}
+                  </div>
+                </div>
+              )}
+              {movie.languages?.length > 0 && (
+                <div className="languages">
+                  <h3>Languages</h3>
+                  <div className="tag-list">
+                    {movie.languages.map(lang => (
+                      <span key={lang.iso_639_1} className="language-tag">{lang.english_name}</span>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </section>
+          )}
 
           {/* Cast */}
-          {movie.cast.length > 0 && (
+          {movie.cast?.length > 0 && (
             <section className="cast-section">
               <h2>Cast</h2>
               <div className="cast-scroll">
@@ -189,7 +182,7 @@ const MovieDetails = ({ movieId, onClose }) => {
           )}
 
           {/* Crew */}
-          {movie.crew.length > 0 && (
+          {movie.crew?.length > 0 && (
             <section className="crew-section">
               <h2>Crew</h2>
               <div className="crew-scroll">
@@ -213,7 +206,7 @@ const MovieDetails = ({ movieId, onClose }) => {
           )}
 
           {/* Similar Movies */}
-          {movie.similar.length > 0 && (
+          {movie.similar?.length > 0 && (
             <section className="similar-section">
               <h2>You Might Also Like</h2>
               <div className="similar-scroll">
