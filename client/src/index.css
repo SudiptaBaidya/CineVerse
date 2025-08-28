@@ -1,6 +1,6 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
 @layer base {
   * {
@@ -45,22 +45,22 @@
 
 @layer components {
   .cineverse-card {
-    @apply bg-[#1B1D2A] rounded-lg border border-gray-800 hover:border-[#E50914] transition-all duration-300;
+    @apply bg-slate-800 rounded-lg border border-gray-700 hover:border-red-600 transition-all duration-300;
   }
 
   .cineverse-button {
-    @apply bg-[#E50914] hover:bg-[#b8070f] text-white font-semibold py-2 px-4 rounded-lg transition-all duration-200;
+    @apply bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-200;
   }
 
   .cineverse-button-secondary {
-    @apply bg-[#1B1D2A] hover:bg-gray-700 text-white font-medium py-2 px-4 rounded-lg border border-gray-600 transition-all duration-200;
+    @apply bg-slate-800 hover:bg-gray-700 text-white font-medium py-2 px-4 rounded-lg border border-gray-600 transition-all duration-200;
   }
 
   .cineverse-input {
-    @apply bg-[#1B1D2A] border border-gray-600 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:border-[#E50914] focus:outline-none transition-colors;
+    @apply bg-slate-800 border border-gray-600 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:border-red-600 focus:outline-none transition-colors;
   }
 
   .text-gradient {
-    @apply bg-gradient-to-r from-[#E50914] to-red-400 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-red-600 to-red-400 bg-clip-text text-transparent;
   }
 }
