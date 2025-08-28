@@ -67,6 +67,14 @@ const MovieSection = ({ title = "You Might Like", type = "recommendations", onMo
     });
   };
 
+  const handleMovieClick = (movieId, event) => {
+    event.preventDefault();
+    console.log('Movie clicked:', movieId); // Debug log
+    if (onMovieClick) {
+      onMovieClick(movieId);
+    }
+  };
+
   const sectionVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
@@ -147,7 +155,7 @@ const MovieSection = ({ title = "You Might Like", type = "recommendations", onMo
               whileHover={{ scale: 1.05 }}
               onHoverStart={() => setHoveredMovie(movie.id)}
               onHoverEnd={() => setHoveredMovie(null)}
-              onClick={() => onMovieClick && onMovieClick(movie.id)}
+              onClick={(e) => handleMovieClick(movie.id, e)}
             >
               <div className="movie-poster-container">
                 <img 
@@ -174,7 +182,7 @@ const MovieSection = ({ title = "You Might Like", type = "recommendations", onMo
                         className="btn-watch-overlay"
                         onClick={(e) => {
                           e.stopPropagation();
-                          onMovieClick && onMovieClick(movie.id);
+                          handleMovieClick(movie.id, e);
                         }}
                       >
                         <Play className="btn-icon" />
@@ -182,7 +190,10 @@ const MovieSection = ({ title = "You Might Like", type = "recommendations", onMo
                       </button>
                       <motion.button 
                         className={`btn-favorite ${favorites.has(movie.id) ? 'favorited' : ''}`}
-                        onClick={() => toggleFavorite(movie.id)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          toggleFavorite(movie.id);
+                        }}
                         whileTap={{ scale: 0.9 }}
                       >
                         <Heart className={`heart-icon ${favorites.has(movie.id) ? 'filled' : ''}`} />

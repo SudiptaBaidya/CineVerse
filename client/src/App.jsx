@@ -31,10 +31,12 @@ function App() {
   };
 
   const handleMovieClick = (movieId) => {
+    console.log('App: Movie clicked:', movieId); // Debug log
     setSelectedMovieId(movieId);
   };
 
   const handleCloseMovieDetails = () => {
+    console.log('App: Closing movie details'); // Debug log
     setSelectedMovieId(null);
   };
 
@@ -80,6 +82,21 @@ function App() {
           movieId={selectedMovieId} 
           onClose={handleCloseMovieDetails} 
         />
+      )}
+
+      {/* Debug Info */}
+      {selectedMovieId && (
+        <div style={{
+          position: 'fixed',
+          top: '10px',
+          left: '10px',
+          background: 'red',
+          color: 'white',
+          padding: '10px',
+          zIndex: 9999
+        }}>
+          Selected Movie ID: {selectedMovieId}
+        </div>
       )}
     </div>
   );
