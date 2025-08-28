@@ -136,15 +136,7 @@ const MovieDetails = ({ movieId, onClose }) => {
             </div>
           </section>
 
-          {/* Debug Info */}
-          <section style={{ padding: '1rem', background: '#333', margin: '1rem 0', borderRadius: '8px' }}>
-            <h3 style={{ color: 'yellow' }}>Debug Info:</h3>
-            <p style={{ color: 'white' }}>Genres: {movie.genres?.length || 0} items</p>
-            <p style={{ color: 'white' }}>Languages: {movie.languages?.length || 0} items</p>
-            <p style={{ color: 'white' }}>Cast: {movie.cast?.length || 0} items</p>
-            <p style={{ color: 'white' }}>Crew: {movie.crew?.length || 0} items</p>
-            <p style={{ color: 'white' }}>Similar: {movie.similar?.length || 0} items</p>
-          </section>
+
 
           {/* Genres & Languages */}
           {(movie.genres?.length > 0 || movie.languages?.length > 0) && (
