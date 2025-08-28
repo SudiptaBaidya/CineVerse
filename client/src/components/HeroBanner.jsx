@@ -4,7 +4,7 @@ import { Play, Download, Star } from 'lucide-react';
 import { tmdbAPI } from '../services/tmdb';
 import './HeroBanner.css';
 
-const HeroBanner = () => {
+const HeroBanner = ({ onMovieClick }) => {
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -13,7 +13,10 @@ const HeroBanner = () => {
       try {
         const trendingMovies = await tmdbAPI.getTrending();
         if (trendingMovies.length > 0) {
-          const heroMovie = trendingMovies[0]; // Use first trending movie
+          const heroMovie = {
+            ...trendingMovies[0],
+            id: trendingMovies[0].id // Ensure ID is available
+          };
           setMovie(heroMovie);
         }
       } catch (error) {
@@ -105,7 +108,10 @@ const HeroBanner = () => {
           </motion.p>
           
           <motion.div className="hero-buttons" variants={itemVariants}>
-            <button className="btn-watch">
+            <button 
+              className="btn-watch"
+              onClick={() => onMovieClick && onMovieClick(movie.id)}
+            >
               <Play className="btn-icon" />
               Watch Now
             </button>

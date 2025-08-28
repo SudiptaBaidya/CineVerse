@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { signInWithPopup, signOut } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, googleProvider } from './firebase';
@@ -5,10 +6,12 @@ import Sidebar from './components/Sidebar';
 import TopNav from './components/TopNav';
 import HeroBanner from './components/HeroBanner';
 import MovieSection from './components/MovieSection';
+import MovieDetails from './components/MovieDetails';
 import './App.css';
 
 function App() {
   const [user] = useAuthState(auth);
+  const [selectedMovieId, setSelectedMovieId] = useState(null);
 
   const signInWithGoogle = async () => {
     try {
@@ -25,6 +28,14 @@ function App() {
     } catch (error) {
       console.error('Error signing out:', error);
     }
+  };
+
+  const handleMovieClick = (movieId) => {
+    setSelectedMovieId(movieId);
+  };
+
+  const handleCloseMovieDetails = () => {
+    setSelectedMovieId(null);
   };
 
   if (!user) {
@@ -56,12 +67,20 @@ function App() {
 
       {/* Main Content */}
       <div className="main-content">
-        <HeroBanner />
+        <HeroBanner onMovieClick={handleMovieClick} />
         
-        <MovieSection title="You Might Like" type="recommendations" />
-        <MovieSection title="Trending Now" type="trending" />
-        <MovieSection title="Popular Movies" type="popular" />
+        <MovieSection title="You Might Like" type="recommendations" onMovieClick={handleMovieClick} />
+        <MovieSection title="Trending Now" type="trending" onMovieClick={handleMovieClick} />
+        <MovieSection title="Popular Movies" type="popular" onMovieClick={handleMovieClick} />
       </div>
+
+      {/* Movie Details Modal */}
+      {selectedMovieId && (
+        <MovieDetails 
+          movieId={selectedMovieId} 
+          onClose={handleCloseMovieDetails} 
+        />
+      )}
     </div>
   );
 }

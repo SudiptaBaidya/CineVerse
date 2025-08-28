@@ -4,7 +4,7 @@ import { Play, Heart, Star } from 'lucide-react';
 import { tmdbAPI } from '../services/tmdb';
 import './MovieSection.css';
 
-const MovieSection = ({ title = "You Might Like", type = "recommendations" }) => {
+const MovieSection = ({ title = "You Might Like", type = "recommendations", onMovieClick }) => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [hoveredMovie, setHoveredMovie] = useState(null);
@@ -147,6 +147,7 @@ const MovieSection = ({ title = "You Might Like", type = "recommendations" }) =>
               whileHover={{ scale: 1.05 }}
               onHoverStart={() => setHoveredMovie(movie.id)}
               onHoverEnd={() => setHoveredMovie(null)}
+              onClick={() => onMovieClick && onMovieClick(movie.id)}
             >
               <div className="movie-poster-container">
                 <img 
@@ -169,7 +170,13 @@ const MovieSection = ({ title = "You Might Like", type = "recommendations" }) =>
                       initial="hidden"
                       animate="visible"
                     >
-                      <button className="btn-watch-overlay">
+                      <button 
+                        className="btn-watch-overlay"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onMovieClick && onMovieClick(movie.id);
+                        }}
+                      >
                         <Play className="btn-icon" />
                         Watch
                       </button>
