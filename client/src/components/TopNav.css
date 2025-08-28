@@ -1,0 +1,160 @@
+.topnav {
+  margin-left: 0;
+  background-color: rgba(27, 29, 42, 0.9);
+  backdrop-filter: blur(4px);
+  padding: 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 40;
+}
+
+.topnav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.topnav-logo h1 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #E50914;
+}
+
+.topnav-search-desktop {
+  display: none;
+  flex: 1;
+  max-width: 32rem;
+  margin: 0 2rem;
+}
+
+.search-container {
+  position: relative;
+  width: 100%;
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  left: 0.75rem;
+  transform: translateY(-50%);
+  width: 1.25rem;
+  height: 1.25rem;
+  color: #9ca3af;
+  pointer-events: none;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.5rem 1rem 0.5rem 2.5rem;
+  border-radius: 9999px;
+  background-color: #1B1D2A;
+  border: 1px solid #4b5563;
+  color: #ffffff;
+  transition: all 0.15s;
+}
+
+.search-input::placeholder {
+  color: #9ca3af;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #E50914;
+  box-shadow: 0 0 0 2px rgba(229, 9, 20, 0.5);
+}
+
+.topnav-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-left: auto;
+}
+
+.mobile-search-btn {
+  display: block;
+  padding: 0.5rem;
+  border-radius: 9999px;
+  background: none;
+  border: none;
+  color: #d1d5db;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.mobile-search-btn:hover {
+  background-color: #374151;
+}
+
+.search-icon-mobile {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.user-avatar img {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 9999px;
+  border: 2px solid #4b5563;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+
+.user-avatar img:hover {
+  border-color: #E50914;
+}
+
+.logout-btn {
+  display: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  background-color: #E50914;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.logout-btn:hover {
+  background-color: #b8070f;
+}
+
+.mobile-search {
+  margin-top: 1rem;
+}
+
+/* Tablet Styles */
+@media (min-width: 768px) {
+  .topnav-search-desktop {
+    display: flex;
+  }
+  
+  .mobile-search-btn {
+    display: none;
+  }
+  
+  .topnav-logo h1 {
+    font-size: 1.5rem;
+  }
+}
+
+/* Desktop Styles */
+@media (min-width: 1024px) {
+  .topnav {
+    margin-left: 16rem;
+  }
+  
+  .topnav-logo {
+    display: none;
+  }
+  
+  .user-avatar img {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+  
+  .logout-btn {
+    display: block;
+  }
+}

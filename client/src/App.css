@@ -1,0 +1,230 @@
+/* App Container */
+.app {
+  min-height: 100vh;
+  background-color: #0D0F15;
+  color: #ffffff;
+}
+
+/* Login Styles */
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #0D0F15;
+  padding: 1rem;
+}
+
+.login-card {
+  padding: 2rem;
+  max-width: 28rem;
+  width: 100%;
+  border-radius: 0.5rem;
+  background-color: #1B1D2A;
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.login-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #E50914;
+}
+
+.login-subtitle {
+  color: #d1d5db;
+  font-size: 0.875rem;
+}
+
+.login-button {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  background-color: #E50914;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.login-button:hover {
+  background-color: #b8070f;
+}
+
+.google-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* Main Content */
+.main-content {
+  margin-left: 0;
+  padding: 1rem;
+  padding-bottom: 6rem;
+}
+
+.welcome-title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #E50914;
+}
+
+.welcome-subtitle {
+  color: #d1d5db;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Movie Grid */
+.movie-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+.movie-card {
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background-color: #1B1D2A;
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+
+.movie-card:hover {
+  transform: scale(1.02);
+}
+
+.movie-poster {
+  aspect-ratio: 2/3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to bottom right, #E50914, #9333ea);
+}
+
+.movie-number {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.movie-info {
+  padding: 0.5rem;
+}
+
+.movie-title {
+  font-weight: 600;
+  color: #ffffff;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.875rem;
+}
+
+.movie-year {
+  font-size: 0.75rem;
+  color: #9ca3af;
+  margin-top: 0.25rem;
+}
+
+/* Tablet Styles */
+@media (min-width: 768px) {
+  .login-title {
+    font-size: 2.25rem;
+  }
+  
+  .login-subtitle {
+    font-size: 1rem;
+  }
+  
+  .login-button {
+    font-size: 1.125rem;
+  }
+  
+  .main-content {
+    padding: 1.5rem;
+    padding-bottom: 6rem;
+  }
+  
+  .welcome-title {
+    font-size: 2.25rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .welcome-subtitle {
+    font-size: 1.125rem;
+    margin-bottom: 2rem;
+  }
+  
+  .movie-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+  
+  .movie-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .movie-number {
+    font-size: 1.5rem;
+  }
+  
+  .movie-info {
+    padding: 0.75rem;
+  }
+  
+  .movie-title {
+    font-size: 1rem;
+  }
+  
+  .movie-year {
+    font-size: 0.875rem;
+  }
+}
+
+/* Desktop Styles */
+@media (min-width: 1024px) {
+  .main-content {
+    margin-left: 16rem;
+    padding: 2rem;
+    padding-bottom: 2rem;
+  }
+  
+  .movie-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 1280px) {
+  .movie-grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+/* Touch-friendly mobile styles */
+@media (max-width: 767px) {
+  .movie-card {
+    min-height: 200px;
+  }
+  
+  .movie-info {
+    padding: 0.75rem 0.5rem;
+  }
+  
+  /* Ensure touch targets are at least 44px */
+  .mobile-nav-item {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}

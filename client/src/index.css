@@ -1,72 +1,98 @@
-@import "tailwindcss";
+/* Reset and Base Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-@layer base {
-  * {
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
-  }
+html, body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background-color: #0D0F15;
+  color: #ffffff;
+  line-height: 1.5;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
-  html,
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0D0F15;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #E50914;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #b8070f;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #E50914 #0D0F15;
+}
+
+/* Mobile-first responsive design */
+body {
+  font-size: 14px;
+}
+
+/* Tablet */
+@media (min-width: 768px) {
   body {
-    max-width: 100vw;
-    overflow-x: hidden;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background-color: #0D0F15;
-    color: #ffffff;
-  }
-
-  /* Custom Scrollbar */
-  ::-webkit-scrollbar {
-    width: 6px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: #0D0F15;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: #E50914;
-    border-radius: 10px;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: #b8070f;
-  }
-
-  /* Firefox scrollbar */
-  * {
-    scrollbar-width: thin;
-    scrollbar-color: #E50914 #0D0F15;
+    font-size: 16px;
   }
 }
 
-@layer utilities {
-  .bg-cineverse-bg {
-    background-color: #0D0F15;
+/* Desktop */
+@media (min-width: 1024px) {
+  body {
+    font-size: 16px;
   }
-  
-  .bg-cineverse-card {
-    background-color: #1B1D2A;
+}
+
+/* Ensure touch targets are accessible on mobile */
+button, a, input {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Focus styles for accessibility */
+button:focus,
+a:focus,
+input:focus {
+  outline: 2px solid #E50914;
+  outline-offset: 2px;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Prevent horizontal scroll on mobile */
+body {
+  overflow-x: hidden;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .movie-card {
+    border: 2px solid #ffffff;
   }
-  
-  .bg-cineverse-accent {
-    background-color: #E50914;
-  }
-  
-  .bg-cineverse-accent-hover {
-    background-color: #b8070f;
-  }
-  
-  .text-cineverse-accent {
-    color: #E50914;
-  }
-  
-  .border-cineverse-accent {
-    border-color: #E50914;
-  }
-  
-  .ring-cineverse-accent {
-    --tw-ring-color: #E50914;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

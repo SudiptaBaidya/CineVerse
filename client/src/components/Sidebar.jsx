@@ -1,4 +1,5 @@
 import { Home, Film, MessageCircle, Heart, Download, Settings } from 'lucide-react';
+import './Sidebar.css';
 
 const Sidebar = () => {
   const navItems = [
@@ -12,29 +13,23 @@ const Sidebar = () => {
 
   return (
     <>
-      {/* Desktop Sidebar - Hidden on mobile */}
-      <div className="hidden lg:flex lg:flex-col lg:fixed lg:inset-y-0 lg:w-64 z-50">
-        <div className="flex flex-col flex-grow pt-5 overflow-y-auto bg-cineverse-card">
-          <div className="flex items-center flex-shrink-0 px-4">
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-cineverse-accent to-red-400 bg-clip-text text-transparent">
-              CineVerse
-            </h1>
+      {/* Desktop Sidebar */}
+      <div className="sidebar-desktop">
+        <div className="sidebar-container">
+          <div className="sidebar-header">
+            <h1 className="sidebar-logo">CineVerse</h1>
           </div>
-          <div className="mt-8 flex-grow flex flex-col">
-            <nav className="flex-1 px-2 space-y-1">
+          <div className="sidebar-nav">
+            <nav className="nav-list">
               {navItems.map((item) => {
                 const Icon = item.icon;
                 return (
                   <a
                     key={item.name}
                     href="#"
-                    className={`group flex items-center px-2 py-2 text-sm font-medium rounded-md transition-colors ${
-                      item.active 
-                        ? 'text-white bg-cineverse-accent' 
-                        : 'text-gray-300 hover:text-white hover:bg-gray-700'
-                    }`}
+                    className={`nav-item ${item.active ? 'nav-item-active' : ''}`}
                   >
-                    <Icon className="mr-3 h-6 w-6" />
+                    <Icon className="nav-icon" />
                     {item.name}
                   </a>
                 );
@@ -44,21 +39,19 @@ const Sidebar = () => {
         </div>
       </div>
 
-      {/* Mobile Bottom Navigation - Hidden on desktop */}
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-cineverse-card border-t border-gray-700">
-        <div className="grid grid-cols-6 py-2">
+      {/* Mobile Bottom Navigation */}
+      <div className="sidebar-mobile">
+        <div className="mobile-nav">
           {navItems.map((item) => {
             const Icon = item.icon;
             return (
               <a
                 key={item.name}
                 href="#"
-                className="flex flex-col items-center justify-center py-2 px-1 transition-colors text-gray-400 hover:text-white"
+                className="mobile-nav-item"
               >
-                <Icon 
-                  className={`h-5 w-5 mb-1 ${item.active ? 'text-cineverse-accent' : ''}`}
-                />
-                <span className="text-xs">{item.name}</span>
+                <Icon className={`mobile-nav-icon ${item.active ? 'mobile-nav-icon-active' : ''}`} />
+                <span className="mobile-nav-text">{item.name}</span>
               </a>
             );
           })}
