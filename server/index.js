@@ -17,6 +17,10 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/cineverse
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.error('MongoDB connection error:', err));
 
+// Routes
+const userRoutes = require('./routes/users');
+app.use('/api/users', userRoutes);
+
 // Basic route
 app.get('/api/test', (req, res) => {
   res.json({ message: 'CineVerse API is running!' });
