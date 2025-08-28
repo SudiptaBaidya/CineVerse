@@ -13,7 +13,12 @@ const MovieDetails = ({ movieId, onClose }) => {
       setLoading(true);
       try {
         const movieData = await tmdbAPI.getMovieDetails(movieId);
-        console.log('Fetched movie data:', movieData); // Debug log to see what data we get
+        console.log('Fetched movie data:', movieData);
+        console.log('Genres:', movieData?.genres);
+        console.log('Languages:', movieData?.languages);
+        console.log('Cast:', movieData?.cast);
+        console.log('Crew:', movieData?.crew);
+        console.log('Similar:', movieData?.similar);
         setMovie(movieData);
       } catch (error) {
         console.error('Error fetching movie details:', error);
@@ -129,6 +134,16 @@ const MovieDetails = ({ movieId, onClose }) => {
             <div className="description">
               <p>{movie.description || 'No description available.'}</p>
             </div>
+          </section>
+
+          {/* Debug Info */}
+          <section style={{ padding: '1rem', background: '#333', margin: '1rem 0', borderRadius: '8px' }}>
+            <h3 style={{ color: 'yellow' }}>Debug Info:</h3>
+            <p style={{ color: 'white' }}>Genres: {movie.genres?.length || 0} items</p>
+            <p style={{ color: 'white' }}>Languages: {movie.languages?.length || 0} items</p>
+            <p style={{ color: 'white' }}>Cast: {movie.cast?.length || 0} items</p>
+            <p style={{ color: 'white' }}>Crew: {movie.crew?.length || 0} items</p>
+            <p style={{ color: 'white' }}>Similar: {movie.similar?.length || 0} items</p>
           </section>
 
           {/* Genres & Languages */}
