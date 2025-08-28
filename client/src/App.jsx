@@ -1,5 +1,4 @@
-import React from 'react';
-import { signInWithRedirect, getRedirectResult, signOut } from 'firebase/auth';
+import { signInWithPopup, signOut } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, googleProvider } from './firebase';
 
@@ -8,27 +7,12 @@ function App() {
 
   const signInWithGoogle = async () => {
     try {
-      await signInWithRedirect(auth, googleProvider);
+      await signInWithPopup(auth, googleProvider);
     } catch (error) {
       console.error('Error signing in:', error);
+      alert('Sign in failed. Please try again.');
     }
   };
-
-  // Handle redirect result on page load
-  React.useEffect(() => {
-    const handleRedirectResult = async () => {
-      try {
-        const result = await getRedirectResult(auth);
-        if (result) {
-          // User signed in successfully
-          console.log('User signed in:', result.user);
-        }
-      } catch (error) {
-        console.error('Error handling redirect:', error);
-      }
-    };
-    handleRedirectResult();
-  }, []);
 
   const handleLogout = async () => {
     try {
