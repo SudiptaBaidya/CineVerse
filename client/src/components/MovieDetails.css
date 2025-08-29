@@ -76,6 +76,7 @@
 .movie-hero {
   position: relative;
   height: 350px;
+  background-color: transparent !important;
   background-size: cover;
   background-position: center;
   display: flex;

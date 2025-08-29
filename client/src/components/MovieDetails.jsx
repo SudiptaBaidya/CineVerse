@@ -84,7 +84,7 @@ const MovieDetails = ({ movieId, onClose, onMovieClick, user }) => {
         <button className="btn-close-x" onClick={onClose}>×</button>
         
         {/* Hero Section */}
-        <div className="movie-hero" style={{ backgroundImage: `url(${movie.backdrop})` }}>
+        <div className="movie-hero">
           {/* Removed the purple banner overlay */}
           
           <div className="hero-content">
