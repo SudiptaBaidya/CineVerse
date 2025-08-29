@@ -82,16 +82,11 @@
   align-items: flex-end;
   border-radius: 12px 12px 0 0;
   overflow: hidden;
+  background: none !important; /* Remove any background */
 }
 
 .hero-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 50%;
-  background: linear-gradient(to top, var(--background-color), rgba(13,15,21,0.2));
-  z-index: 1; /* Ensure overlay is behind content */
+  display: none !important; /* Hide the purple banner overlay */
 }
 
 .hero-content {
