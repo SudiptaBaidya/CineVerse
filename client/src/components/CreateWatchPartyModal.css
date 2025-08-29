@@ -4,73 +4,93 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.85); /* Darker overlay */
+  background-color: rgba(0, 0, 0, 0.9); /* Slightly darker, more opaque overlay */
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  backdrop-filter: blur(5px); /* Subtle blur effect */
+  -webkit-backdrop-filter: blur(5px); /* Safari support */
 }
 
 .create-party-modal-content {
-  background-color: var(--background-secondary); /* Ensure good contrast */
-  padding: 2.5rem; /* Increased padding */
-  border-radius: 12px; /* Slightly more rounded corners */
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5); /* More prominent shadow */
-  width: 90%;
-  max-width: 550px; /* Slightly wider */
+  background-color: var(--background-secondary);
+  padding: 3rem; /* Increased padding for more breathing room */
+  border-radius: 16px; /* More pronounced rounded corners */
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6); /* Deeper, more diffused shadow */
+  width: 95%;
+  max-width: 600px; /* Wider modal for better form layout */
   position: relative;
   color: var(--text-primary);
-  border: 1px solid rgba(var(--primary-color-rgb), 0.3); /* Subtle border */
+  border: 1px solid rgba(var(--primary-color-rgb), 0.4); /* Slightly more visible border */
+  animation: fadeInScale 0.3s ease-out forwards; /* Simple entry animation */
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .create-party-modal-content .btn-close-x {
   position: absolute;
-  top: 1rem;
-  right: 1rem;
+  top: 1.2rem;
+  right: 1.2rem;
   background: none;
   border: none;
-  font-size: 1.8rem; /* Larger close button */
-  color: var(--text-secondary); /* Keep color subtle */
+  font-size: 2rem; /* Larger close button */
+  color: var(--text-secondary);
   cursor: pointer;
-  transition: color 0.2s ease;
+  transition: color 0.2s ease, transform 0.2s ease;
+  padding: 0.5rem; /* Add padding for easier clicking */
+  border-radius: 50%; /* Make it circular */
 }
 
 .create-party-modal-content .btn-close-x:hover {
-  color: var(--primary-color); /* Highlight on hover */
+  color: var(--primary-color);
+  transform: rotate(90deg); /* Spin on hover */
 }
 
 .create-party-modal-content h2 {
-  font-size: 2rem; /* Larger heading */
-  margin-bottom: 1.8rem; /* More space below heading */
+  font-size: 2.2rem; /* Larger, more impactful heading */
+  margin-bottom: 2rem; /* More space below heading */
   text-align: center;
   color: var(--primary-color);
-  font-weight: 600; /* Slightly bolder */
+  font-weight: 700; /* Bolder heading */
+  letter-spacing: -0.03em; /* Tighter letter spacing for modern look */
 }
 
 .create-party-modal-content .form-group {
-  margin-bottom: 1.5rem; /* More space between form groups */
+  margin-bottom: 1.8rem; /* More space between form groups */
 }
 
 .create-party-modal-content label {
   display: block;
-  margin-bottom: 0.6rem; /* More space below label */
-  font-weight: bold;
+  margin-bottom: 0.8rem; /* More space below label */
+  font-weight: 600; /* Bolder labels */
   color: var(--text-primary);
-  font-size: 1.05rem; /* Slightly larger label text */
+  font-size: 1.1rem; /* Slightly larger label text */
+  opacity: 0.9; /* Slightly softer label color */
 }
 
 .create-party-modal-content input[type="date"],
 .create-party-modal-content input[type="time"],
 .create-party-modal-content select,
 .create-party-modal-content textarea {
-  width: 100%; /* Full width */
-  padding: 12px 15px; /* Increased padding */
-  border: 1px solid var(--border-color); /* Keep existing border color */
-  border-radius: 8px; /* More rounded input fields */
-  background-color: var(--background-primary); /* Keep existing background */
+  width: 100%;
+  padding: 14px 18px; /* Increased padding for larger touch targets */
+  border: 1px solid var(--border-color);
+  border-radius: 10px; /* Even more rounded input fields */
+  background-color: var(--background-primary);
   color: var(--text-primary);
-  font-size: 1.05rem; /* Slightly larger font */
-  box-sizing: border-box; /* Include padding in width */
+  font-size: 1.1rem; /* Larger font in inputs */
+  box-sizing: border-box;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .create-party-modal-content input[type="date"]:focus,
@@ -78,54 +98,113 @@
 .create-party-modal-content select:focus,
 .create-party-modal-content textarea:focus {
   outline: none;
-  border-color: var(--primary-color); /* Highlight focus with primary color */
-  box-shadow: 0 0 0 3px rgba(var(--primary-color-rgb), 0.4); /* More prominent focus shadow */
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 4px rgba(var(--primary-color-rgb), 0.3); /* More prominent, softer focus shadow */
+  background-color: var(--background-secondary); /* Slightly change background on focus */
 }
 
 .create-party-modal-content textarea {
+  min-height: 100px; /* Taller textarea */
   resize: vertical;
-  min-height: 80px; /* Taller textarea */
 }
 
 .create-party-modal-content .btn-create-party-submit {
   display: block;
   width: 100%;
-  padding: 14px; /* Increased padding */
+  padding: 16px; /* Larger button for better clickability */
   background-color: var(--primary-color);
   color: white;
   border: none;
-  border-radius: 8px; /* More rounded button */
-  font-size: 1.2rem; /* Larger font */
+  border-radius: 10px; /* More rounded button */
+  font-size: 1.3rem; /* Larger, more prominent font */
   font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.1s ease; /* Add transform for subtle click effect */
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  margin-top: 2.5rem; /* More space above the button */
+  letter-spacing: 0.02em; /* Slightly spaced out text */
 }
 
 .create-party-modal-content .btn-create-party-submit:hover:not(:disabled) {
   background-color: var(--primary-dark);
-  transform: translateY(-1px); /* Subtle lift on hover */
+  transform: translateY(-2px); /* More noticeable lift on hover */
+  box-shadow: 0 8px 20px rgba(var(--primary-color-rgb), 0.4); /* Shadow on hover */
 }
 
 .create-party-modal-content .btn-create-party-submit:active:not(:disabled) {
   transform: translateY(0); /* Reset on click */
+  box-shadow: none;
 }
 
 .create-party-modal-content .btn-create-party-submit:disabled {
   background-color: var(--text-secondary);
   cursor: not-allowed;
-  opacity: 0.7; /* Slightly faded when disabled */
+  opacity: 0.6; /* More faded when disabled */
 }
 
 .success-message {
   color: #28a745; /* Green for success */
   text-align: center;
-  margin-bottom: 1rem;
-  font-weight: 500;
+  margin-bottom: 1.5rem; /* More space */
+  font-weight: 600;
+  font-size: 1.1rem;
 }
 
 .error-message {
   color: #dc3545; /* Red for error */
   text-align: center;
-  margin-bottom: 1rem;
-  font-weight: 500;
+  margin-bottom: 1.5rem; /* More space */
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .create-party-modal-content {
+    padding: 2rem;
+    border-radius: 12px;
+  }
+
+  .create-party-modal-content h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .create-party-modal-content .btn-close-x {
+    font-size: 1.8rem;
+    top: 0.8rem;
+    right: 0.8rem;
+  }
+
+  .create-party-modal-content input,
+  .create-party-modal-content select,
+  .create-party-modal-content textarea {
+    padding: 12px 15px;
+    font-size: 1rem;
+  }
+
+  .create-party-modal-content .btn-create-party-submit {
+    padding: 14px;
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .create-party-modal-content {
+    padding: 1.5rem;
+    max-width: 95%;
+  }
+
+  .create-party-modal-content h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .create-party-modal-content .form-group {
+    margin-bottom: 1.2rem;
+  }
+
+  .create-party-modal-content label {
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+  }
 }
