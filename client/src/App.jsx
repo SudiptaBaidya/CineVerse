@@ -2,12 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import { signInWithPopup, signOut } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, googleProvider } from './firebase';
-import { tmdbAPI } from './services/tmdb';
-import { useState, useEffect, useContext } from 'react';
-import { signInWithPopup, signOut } from 'firebase/auth';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth, googleProvider } from './firebase';
-import { tmdbAPI } from './services/tmdb';
+
 import { userAPI } from './services/api';
 import Sidebar from './components/Sidebar';
 import TopNav from './components/TopNav';
