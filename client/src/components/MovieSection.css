@@ -213,7 +213,7 @@
 }
 
 /* Mobile Styles */
-@media (max-width: 768px) {
+@media (max-width: 768px) and (hover: none) {
   .movie-section {
     padding: 1.5rem 1rem;
   }
@@ -239,7 +239,7 @@
     transform: scale(0.98);
   }
   
-  /* Hide overlay on mobile - will be replaced with modal */
+  /* Hide overlay on touch devices without hover */
   .movie-overlay {
     display: none;
   }
