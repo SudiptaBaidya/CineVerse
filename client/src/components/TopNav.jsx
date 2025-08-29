@@ -84,6 +84,13 @@ const TopNav = ({ user, onLogout, onSearch, onMovieSelect }) => {
     }
   };
 
+  const handleMovieSuggestionClick = (movieId) => {
+    onMovieSelect(movieId);
+    setShowSuggestions(false);
+    setSearchQuery('');
+    setSuggestions([]);
+  };
+
   return (
     <nav className="topnav">
       <div className="topnav-container">
@@ -132,7 +139,7 @@ const TopNav = ({ user, onLogout, onSearch, onMovieSelect }) => {
                     <span>Suggestions</span>
                   </div>
                   {suggestions.map((movie) => (
-                    <div key={movie.id} className="suggestion-item movie-suggestion" onClick={() => onMovieSelect(movie.id)}>
+                    <div key={movie.id} className="suggestion-item movie-suggestion" onClick={() => handleMovieSuggestionClick(movie.id)}>
                       <img src={movie.poster} alt={movie.title} className="suggestion-poster" />
                       <div className="suggestion-info">
                         <span className="suggestion-title">{movie.title}</span>
