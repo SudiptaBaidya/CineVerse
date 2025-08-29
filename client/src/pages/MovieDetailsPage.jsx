@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Play, Download, Star, Clock, MessageSquarePlus, CalendarPlus } from 'lucide-react';
+import { Play, Download, Star, Clock, MessageSquarePlus, CalendarPlus, Heart } from 'lucide-react';
 import RecommendMovieModal from '../components/RecommendMovieModal';
 import CreateWatchPartyModal from '../components/CreateWatchPartyModal';
 import { tmdbAPI } from '../services/tmdb';
@@ -106,6 +106,10 @@ const MovieDetailsPage = ({ user, onMovieClick }) => {
               <button className="btn-download">
                 <Download className="btn-icon" />
                 Download
+              </button>
+              <button className="btn-favorite">
+                <Heart className="btn-icon" />
+                Favorite
               </button>
               <button className="btn-recommend" onClick={() => setShowRecommendModal(true)}>
                 <MessageSquarePlus className="btn-icon" />

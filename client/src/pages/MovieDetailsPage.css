@@ -174,7 +174,8 @@
 .btn-watch-trailer,
 .btn-download,
 .btn-recommend,
-.btn-create-party {
+.btn-create-party,
+.btn-favorite {
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -211,6 +212,19 @@
 .btn-create-party:hover {
   background-color: rgba(255, 255, 255, 0.2);
   border-color: var(--primary-color);
+  transform: translateY(-3px);
+}
+
+.btn-favorite {
+  background-color: transparent;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+.btn-favorite:hover {
+  border-color: #FFD700; /* Gold color for favorite */
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
   transform: translateY(-3px);
 }
 
