@@ -11,6 +11,7 @@ import MovieSection from './components/MovieSection';
 import MovieDetails from './components/MovieDetails';
 import MoviesPage from './pages/MoviesPage';
 import MessagesPage from './pages/MessagesPage';
+import DownloadsPage from './pages/DownloadsPage';
 import Settings from './components/Settings';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { SettingsContext, SettingsProvider } from './contexts/SettingsContext';
@@ -169,6 +170,8 @@ function App() {
           />
         ) : currentView === 'messages' ? (
           <MessagesPage user={user} />
+        ) : currentView === 'downloads' ? (
+          <DownloadsPage />
         ) : (
           <>
             <HeroBanner onMovieClick={handleMovieClick} favorites={favorites} onToggleFavorite={toggleFavorite} />
