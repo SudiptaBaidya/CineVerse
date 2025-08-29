@@ -100,6 +100,7 @@
   flex-shrink: 0;
   position: relative; /* Ensure poster has proper positioning context */
   z-index: 2; /* Ensure poster is above overlay but below content if needed */
+  background: transparent !important; /* Temporary: for debugging purple overlay */
 }
 
 .movie-poster img {
