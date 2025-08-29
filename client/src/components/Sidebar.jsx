@@ -2,7 +2,7 @@ import { Home, Film, MessageCircle, Heart, Download, Settings } from 'lucide-rea
 import { useLocation } from 'react-router-dom';
 import './Sidebar.css';
 
-const Sidebar = ({ navigate }) => {
+const Sidebar = ({ navigate, onOpenSettings }) => {
   const location = useLocation();
 
   const navItems = [
@@ -11,7 +11,7 @@ const Sidebar = ({ navigate }) => {
     { name: 'Messages', icon: MessageCircle, path: '/messages' },
     { name: 'Favorites', icon: Heart, path: '/favorites' },
     { name: 'Downloads', icon: Download, path: '/downloads' },
-    { name: 'Settings', icon: Settings, path: '/settings' },
+    { name: 'Settings', icon: Settings, handler: onOpenSettings },
   ];
 
   return (
@@ -26,11 +26,11 @@ const Sidebar = ({ navigate }) => {
             <nav className="nav-list">
               {navItems.map((item) => {
                 const Icon = item.icon;
-                const isActive = location.pathname === item.path;
+                const isActive = item.path && location.pathname === item.path;
                 return (
                   <div
                     key={item.name}
-                    onClick={() => navigate(item.path)}
+                    onClick={() => { item.handler ? item.handler() : navigate(item.path); }}
                     className={`nav-item ${isActive ? 'nav-item-active' : ''}`}
                     role="button"
                   >
@@ -49,11 +49,11 @@ const Sidebar = ({ navigate }) => {
         <div className="mobile-nav">
           {navItems.map((item) => {
             const Icon = item.icon;
-            const isActive = location.pathname === item.path;
+            const isActive = item.path && location.pathname === item.path;
             return (
               <div
                 key={item.name}
-                onClick={() => navigate(item.path)}
+                onClick={() => { item.handler ? item.handler() : navigate(item.path); }}
                 className="mobile-nav-item"
                 role="button"
               >
