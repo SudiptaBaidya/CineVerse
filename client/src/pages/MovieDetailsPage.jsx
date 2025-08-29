@@ -5,6 +5,7 @@ import { Play, Download, Star, Clock, MessageSquarePlus, CalendarPlus, Heart } f
 import RecommendMovieModal from '../components/RecommendMovieModal';
 import CreateWatchPartyModal from '../components/CreateWatchPartyModal';
 import { tmdbAPI } from '../services/tmdb';
+import { userAPI } from '../services/api'; // Import userAPI
 import './MovieDetailsPage.css';
 
 const MovieDetailsPage = ({ user, onMovieClick }) => {
@@ -14,6 +15,7 @@ const MovieDetailsPage = ({ user, onMovieClick }) => {
   const [loading, setLoading] = useState(true);
   const [showRecommendModal, setShowRecommendModal] = useState(false);
   const [showCreateWatchPartyModal, setShowCreateWatchPartyModal] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false); // New state for favorite status
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
@@ -34,6 +36,22 @@ const MovieDetailsPage = ({ user, onMovieClick }) => {
     }
   }, [movieId]);
 
+  // Effect to check if movie is a favorite
+  useEffect(() => {
+    const checkFavoriteStatus = async () => {
+      if (user?.uid && movie) {
+        try {
+          const favorites = await userAPI.getFavorites(user.uid);
+          const isFav = favorites.some(fav => fav.id === movie.id); // Assuming movie object has an 'id'
+          setIsFavorite(isFav);
+        } catch (error) {
+          console.error('Error checking favorite status:', error);
+        }
+      }
+    };
+    checkFavoriteStatus();
+  }, [user, movie]); // Re-run when user or movie changes
+
   const formatRuntime = (minutes) => {
     if (!minutes) return '';
     const hours = Math.floor(minutes / 60);
@@ -44,6 +62,37 @@ const MovieDetailsPage = ({ user, onMovieClick }) => {
   const openTrailer = () => {
     if (movie?.trailer) {
       window.open(`https://www.youtube.com/watch?v=${movie.trailer}`, '_blank');
+    }
+  };
+
+  const handleFavoriteToggle = async () => {
+    if (!user?.uid || !movie) {
+      console.warn('User not logged in or movie data not available.');
+      alert('Please log in to add movies to your favorites!'); // Provide user feedback
+      return;
+    }
+
+    try {
+      if (isFavorite) {
+        await userAPI.removeFavorite(user.uid, movie.id);
+        setIsFavorite(false);
+        alert(`${movie.title} removed from favorites!`); // User feedback
+      } else {
+        // Ensure the movie object passed to addFavorite has necessary details
+        const movieToAdd = {
+          id: movie.id,
+          title: movie.title,
+          poster: movie.poster,
+          year: movie.year,
+          // Add any other relevant movie details you want to store
+        };
+        await userAPI.addFavorite(user.uid, movieToAdd);
+        setIsFavorite(true);
+        alert(`${movie.title} added to favorites!`); // User feedback
+      }
+    } catch (error) {
+      console.error('Error toggling favorite status:', error);
+      alert('Failed to update favorites. Please try again.'); // User feedback
     }
   };
 
@@ -107,9 +156,17 @@ const MovieDetailsPage = ({ user, onMovieClick }) => {
                 <Download className="btn-icon" />
                 Download
               </button>
-              <button className="btn-favorite">
-                <Heart className="btn-icon" />
-                Favorite
+              <button 
+                className="btn-favorite"
+                onClick={handleFavoriteToggle}
+                style={{ 
+                  backgroundColor: isFavorite ? '#FFD700' : 'transparent',
+                  color: isFavorite ? 'black' : 'white',
+                  borderColor: isFavorite ? '#FFD700' : 'rgba(255, 255, 255, 0.3)'
+                }}
+              >
+                <Heart className="btn-icon" style={{ fill: isFavorite ? 'black' : 'none' }} />
+                {isFavorite ? 'Favorited' : 'Favorite'}
               </button>
               <button className="btn-recommend" onClick={() => setShowRecommendModal(true)}>
                 <MessageSquarePlus className="btn-icon" />
@@ -194,37 +251,37 @@ const MovieDetailsPage = ({ user, onMovieClick }) => {
                     <h4>{person.name}</h4>
                     <p>{person.job}</p>
                   </div>
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
+                )
+                )}
+              </div>
+            </section>
+          )}
 
-        {/* Similar Movies */}
-        {movie.similar?.length > 0 && (
-          <section className="movie-details-similar-section">
-            <h2>You Might Also Like</h2>
-            <div className="similar-scroll">
-              {movie.similar.map(similarMovie => (
-                <div 
-                  key={similarMovie.id} 
-                  className="similar-card"
-                  onClick={() => onMovieClick && onMovieClick(similarMovie.id)}
-                >
-                  <img src={similarMovie.poster} alt={similarMovie.title} />
-                  <div className="similar-info">
-                    <h4>{similarMovie.title}</h4>
-                    <div className="similar-rating">
-                      <Star className="star-icon" />
-                      <span>{similarMovie.rating}</span>
+          {/* Similar Movies */}
+          {movie.similar?.length > 0 && (
+            <section className="movie-details-similar-section">
+              <h2>You Might Also Like</h2>
+              <div className="similar-scroll">
+                {movie.similar.map(similarMovie => (
+                  <div 
+                    key={similarMovie.id} 
+                    className="similar-card"
+                    onClick={() => onMovieClick && onMovieClick(similarMovie.id)}
+                  >
+                    <img src={similarMovie.poster} alt={similarMovie.title} />
+                    <div className="similar-info">
+                      <h4>{similarMovie.title}</h4>
+                      <div className="similar-rating">
+                        <Star className="star-icon" />
+                        <span>{similarMovie.rating}</span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
-      </div>
+                ))}
+              </div>
+            </section>
+          )}
+        </div>
 
       {/* Recommend Movie Modal */}
       {showRecommendModal && (
