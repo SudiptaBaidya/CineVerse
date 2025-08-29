@@ -24,14 +24,15 @@ const Sidebar = ({ onViewChange, currentView }) => {
               {navItems.map((item) => {
                 const Icon = item.icon;
                 return (
-                  <button
+                  <div
                     key={item.name}
                     onClick={() => onViewChange && onViewChange(item.view)}
                     className={`nav-item ${currentView === item.view ? 'nav-item-active' : ''}`}
+                    role="button"
                   >
                     <Icon className="nav-icon" />
                     {item.name}
-                  </button>
+                  </div>
                 );
               })}
             </nav>
@@ -45,14 +46,15 @@ const Sidebar = ({ onViewChange, currentView }) => {
           {navItems.map((item) => {
             const Icon = item.icon;
             return (
-              <button
+              <div
                 key={item.name}
                 onClick={() => onViewChange && onViewChange(item.view)}
                 className="mobile-nav-item"
+                role="button"
               >
                 <Icon className={`mobile-nav-icon ${currentView === item.view ? 'mobile-nav-icon-active' : ''}`} />
                 <span className="mobile-nav-text">{item.name}</span>
-              </button>
+              </div>
             );
           })}
         </div>
