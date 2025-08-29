@@ -4,7 +4,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.85); /* Darker overlay */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,14 +12,15 @@
 }
 
 .create-party-modal-content {
-  background-color: var(--background-secondary);
-  padding: 2rem;
-  border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  background-color: var(--background-secondary); /* Ensure good contrast */
+  padding: 2.5rem; /* Increased padding */
+  border-radius: 12px; /* Slightly more rounded corners */
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5); /* More prominent shadow */
   width: 90%;
-  max-width: 550px;
+  max-width: 550px; /* Slightly wider */
   position: relative;
   color: var(--text-primary);
+  border: 1px solid rgba(var(--primary-color-rgb), 0.3); /* Subtle border */
 }
 
 .create-party-modal-content .btn-close-x {
@@ -28,40 +29,48 @@
   right: 1rem;
   background: none;
   border: none;
-  font-size: 1.5rem;
-  color: var(--text-secondary);
+  font-size: 1.8rem; /* Larger close button */
+  color: var(--text-secondary); /* Keep color subtle */
   cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.create-party-modal-content .btn-close-x:hover {
+  color: var(--primary-color); /* Highlight on hover */
 }
 
 .create-party-modal-content h2 {
-  font-size: 1.8rem;
-  margin-bottom: 1.5rem;
+  font-size: 2rem; /* Larger heading */
+  margin-bottom: 1.8rem; /* More space below heading */
   text-align: center;
   color: var(--primary-color);
+  font-weight: 600; /* Slightly bolder */
 }
 
 .create-party-modal-content .form-group {
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem; /* More space between form groups */
 }
 
 .create-party-modal-content label {
   display: block;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.6rem; /* More space below label */
   font-weight: bold;
   color: var(--text-primary);
+  font-size: 1.05rem; /* Slightly larger label text */
 }
 
 .create-party-modal-content input[type="date"],
 .create-party-modal-content input[type="time"],
 .create-party-modal-content select,
 .create-party-modal-content textarea {
-  width: calc(100% - 20px); /* Account for padding */
-  padding: 10px;
-  border: 1px solid var(--border-color);
-  border-radius: 5px;
-  background-color: var(--background-primary);
+  width: 100%; /* Full width */
+  padding: 12px 15px; /* Increased padding */
+  border: 1px solid var(--border-color); /* Keep existing border color */
+  border-radius: 8px; /* More rounded input fields */
+  background-color: var(--background-primary); /* Keep existing background */
   color: var(--text-primary);
-  font-size: 1rem;
+  font-size: 1.05rem; /* Slightly larger font */
+  box-sizing: border-box; /* Include padding in width */
 }
 
 .create-party-modal-content input[type="date"]:focus,
@@ -69,46 +78,54 @@
 .create-party-modal-content select:focus,
 .create-party-modal-content textarea:focus {
   outline: none;
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 2px rgba(var(--primary-color-rgb), 0.3);
+  border-color: var(--primary-color); /* Highlight focus with primary color */
+  box-shadow: 0 0 0 3px rgba(var(--primary-color-rgb), 0.4); /* More prominent focus shadow */
 }
 
 .create-party-modal-content textarea {
   resize: vertical;
-  min-height: 60px;
+  min-height: 80px; /* Taller textarea */
 }
 
 .create-party-modal-content .btn-create-party-submit {
   display: block;
   width: 100%;
-  padding: 12px;
+  padding: 14px; /* Increased padding */
   background-color: var(--primary-color);
   color: white;
   border: none;
-  border-radius: 5px;
-  font-size: 1.1rem;
+  border-radius: 8px; /* More rounded button */
+  font-size: 1.2rem; /* Larger font */
   font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.1s ease; /* Add transform for subtle click effect */
 }
 
 .create-party-modal-content .btn-create-party-submit:hover:not(:disabled) {
   background-color: var(--primary-dark);
+  transform: translateY(-1px); /* Subtle lift on hover */
+}
+
+.create-party-modal-content .btn-create-party-submit:active:not(:disabled) {
+  transform: translateY(0); /* Reset on click */
 }
 
 .create-party-modal-content .btn-create-party-submit:disabled {
   background-color: var(--text-secondary);
   cursor: not-allowed;
+  opacity: 0.7; /* Slightly faded when disabled */
 }
 
 .success-message {
-  color: green;
+  color: #28a745; /* Green for success */
   text-align: center;
   margin-bottom: 1rem;
+  font-weight: 500;
 }
 
 .error-message {
-  color: var(--error-color);
+  color: #dc3545; /* Red for error */
   text-align: center;
   margin-bottom: 1rem;
+  font-weight: 500;
 }
