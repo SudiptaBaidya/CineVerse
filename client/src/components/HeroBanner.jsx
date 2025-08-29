@@ -35,7 +35,7 @@ const HeroBanner = ({ onMovieClick, favorites = [], onToggleFavorite }) => {
       }
     };
 
-    fetchHeroMovie();
+    fetchTrendingMovies();
   }, []);
 
   useEffect(() => {
