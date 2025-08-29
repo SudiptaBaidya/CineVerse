@@ -39,7 +39,6 @@ const TopNav = ({ user, onLogout, onSearch, onMovieSelect }) => {
     if (value.trim().length > 0) {
       setShowSuggestions(true);
       try {
-        console.log('tmdbAPI:', tmdbAPI);
         const results = await tmdbAPI.searchMovies(value.trim());
         setSuggestions(results.slice(0, 5));
       } catch (error) {
