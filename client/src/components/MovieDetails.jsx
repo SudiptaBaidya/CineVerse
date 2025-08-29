@@ -119,9 +119,9 @@ const MovieDetails = ({ movieId, onClose, onMovieClick, user }) => {
                     Not Available
                   </button>
                 )}
-                <button className="btn-favorite">
-                  <Heart className="btn-icon" />
-                  Favorite
+                <button className="btn-download">
+                  <Download className="btn-icon" />
+                  Download
                 </button>
                 <button className="btn-favorite">
                   <Heart className="btn-icon" />
