@@ -75,7 +75,7 @@
 /* Hero Section */
 .movie-hero {
   position: relative;
-  height: 350px;
+  height: 500px; /* Increased height for testing */
   background-color: transparent !important;
   background-image: none !important;
   background-size: cover;
