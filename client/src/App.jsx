@@ -24,9 +24,7 @@ function App() {
   const navigate = useNavigate(); // Initialize useNavigate
   const [searchResults, setSearchResults] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
-  const [currentView, setCurrentView] = useState('home');
   const [favorites, setFavorites] = useState([]);
-  const [isSettingsOpen, setSettingsOpen] = useState(false);
   const { includeAdult } = useContext(SettingsContext);
 
   const signInWithGoogle = async () => {
@@ -67,13 +65,15 @@ function App() {
   };
 
   const handleViewChange = (view) => {
-    if (view === 'settings') {
-      setSettingsOpen(true);
-    } else {
-      setCurrentView(view);
-      setSearchResults(null);
-      setSearchQuery('');
-    }
+    let path = '/';
+    if (view === 'favorites') path = '/favorites';
+    else if (view === 'movies') path = '/movies';
+    else if (view === 'messages') path = '/messages';
+    else if (view === 'downloads') path = '/downloads';
+    else if (view === 'settings') path = '/settings';
+    navigate(path);
+    setSearchResults(null);
+    setSearchQuery('');
   };
 
   const loadFavorites = async () => {
@@ -127,76 +127,67 @@ function App() {
 
   return (
     <div className="app">
-      <Sidebar onViewChange={handleViewChange} currentView={currentView} />
+      <Sidebar navigate={navigate} />
       <TopNav user={user} onLogout={handleLogout} onSearch={handleSearch} />
 
       {/* Main Content */}
       <div className="main-content">
         <Routes>
           <Route path="/" element={
-            <>
-              {searchResults ? (
-                <div className="search-results">
-                  <div className="search-header">
-                    <h2>Search Results for "{searchQuery}"</h2>
-                    <button onClick={clearSearch} className="clear-search">Clear Search</button>
-                  </div>
-                  <MovieSection 
-                    title={`Found ${searchResults.length} movies`} 
-                    movies={searchResults} 
-                    onMovieClick={handleMovieClick}
-                    favorites={favorites}
-                    onToggleFavorite={toggleFavorite}
-                  />
+            searchResults ? (
+              <div className="search-results">
+                <div className="search-header">
+                  <h2>Search Results for "{searchQuery}"</h2>
+                  <button onClick={clearSearch} className="clear-search">Clear Search</button>
                 </div>
-              ) : currentView === 'favorites' ? (
-                <div className="favorites-view">
-                  <div className="favorites-header">
-                    <h2>My Favorites</h2>
-                    <button onClick={loadFavorites} className="refresh-favorites">Refresh</button>
-                  </div>
-                  <MovieSection 
-                    title={`${favorites.length} favorite movies`} 
-                    movies={favorites} 
-                    onMovieClick={handleMovieClick}
-                    favorites={favorites}
-                    onToggleFavorite={toggleFavorite}
-                  />
-                </div>
-              ) : currentView === 'movies' ? (
-                <MoviesPage 
-                  onMovieClick={handleMovieClick} 
-                  favorites={favorites} 
-                  onToggleFavorite={toggleFavorite} 
+                <MovieSection 
+                  title={`Found ${searchResults.length} movies`} 
+                  movies={searchResults} 
+                  onMovieClick={handleMovieClick}
+                  favorites={favorites}
+                  onToggleFavorite={toggleFavorite}
                 />
-              ) : currentView === 'messages' ? (
-                <MessagesPage user={user} />
-              ) : currentView === 'downloads' ? (
-                <DownloadsPage />
-              ) : (
-                <>
-                  <HeroBanner onMovieClick={handleMovieClick} favorites={favorites} onToggleFavorite={toggleFavorite} />
-                  <MovieSection title="You Might Like" type="recommendations" onMovieClick={handleMovieClick} favorites={favorites} onToggleFavorite={toggleFavorite} />
-                  <MovieSection title="Trending Now" type="trending" onMovieClick={handleMovieClick} favorites={favorites} onToggleFavorite={toggleFavorite} />
-                  <MovieSection title="Popular Movies" type="popular" onMovieClick={handleMovieClick} favorites={favorites} onToggleFavorite={toggleFavorite} />
-                  <MovieSection title="Action" type="genre" genreId={28} onMovieClick={handleMovieClick} favorites={favorites} onToggleFavorite={toggleFavorite} />
-                  <MovieSection title="Comedy" type="genre" genreId={35} onMovieClick={handleMovieClick} favorites={favorites} onToggleFavorite={toggleFavorite} />
-                  <MovieSection title="Horror" type="genre" genreId={27} onMovieClick={handleMovieClick} favorites={favorites} onToggleFavorite={toggleFavorite} />
-                </>
-              )}
-            </>
+              </div>
+            ) : (
+              <>
+                <HeroBanner onMovieClick={handleMovieClick} favorites={favorites} onToggleFavorite={toggleFavorite} />
+                <MovieSection title="You Might Like" type="recommendations" onMovieClick={handleMovieClick} favorites={favorites} onToggleFavorite={toggleFavorite} />
+                <MovieSection title="Trending Now" type="trending" onMovieClick={handleMovieClick} favorites={favorites} onToggleFavorite={toggleFavorite} />
+                <MovieSection title="Popular Movies" type="popular" onMovieClick={handleMovieClick} favorites={favorites} onToggleFavorite={toggleFavorite} />
+                <MovieSection title="Action" type="genre" genreId={28} onMovieClick={handleMovieClick} favorites={favorites} onToggleFavorite={toggleFavorite} />
+                <MovieSection title="Comedy" type="genre" genreId={35} onMovieClick={handleMovieClick} favorites={favorites} onToggleFavorite={toggleFavorite} />
+                <MovieSection title="Horror" type="genre" genreId={27} onMovieClick={handleMovieClick} favorites={favorites} onToggleFavorite={toggleFavorite} />
+              </>
+            )
           } />
+          <Route path="/favorites" element={
+            <div className="favorites-view">
+              <div className="favorites-header">
+                <h2>My Favorites</h2>
+                <button onClick={loadFavorites} className="refresh-favorites">Refresh</button>
+              </div>
+              <MovieSection 
+                title={`${favorites.length} favorite movies`} 
+                movies={favorites} 
+                onMovieClick={handleMovieClick}
+                favorites={favorites}
+                onToggleFavorite={toggleFavorite}
+              />
+            </div>
+          } />
+          <Route path="/movies" element={
+            <MoviesPage 
+              onMovieClick={handleMovieClick} 
+              favorites={favorites} 
+              onToggleFavorite={toggleFavorite} 
+            />
+          } />
+          <Route path="/messages" element={<MessagesPage user={user} />} />
+          <Route path="/downloads" element={<DownloadsPage />} />
+          <Route path="/settings" element={<Settings user={user} />} />
           <Route path="/movie/:movieId" element={<MovieDetailsPage user={user} onMovieClick={handleMovieClick} />} />
         </Routes>
       </div>
-
-      {/* Settings Modal */}
-      {isSettingsOpen && (
-        <Settings 
-          user={user}
-          onClose={() => setSettingsOpen(false)}
-        />
-      )}
     </div>
   );
 }

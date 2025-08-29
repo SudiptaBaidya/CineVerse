@@ -1,14 +1,17 @@
 import { Home, Film, MessageCircle, Heart, Download, Settings } from 'lucide-react';
+import { useLocation } from 'react-router-dom';
 import './Sidebar.css';
 
-const Sidebar = ({ onViewChange, currentView }) => {
+const Sidebar = ({ navigate }) => {
+  const location = useLocation();
+
   const navItems = [
-    { name: 'Home', icon: Home, view: 'home' },
-    { name: 'Movies', icon: Film, view: 'movies' },
-    { name: 'Messages', icon: MessageCircle, view: 'messages' },
-    { name: 'Favorites', icon: Heart, view: 'favorites' },
-    { name: 'Downloads', icon: Download, view: 'downloads' },
-    { name: 'Settings', icon: Settings, view: 'settings' },
+    { name: 'Home', icon: Home, path: '/' },
+    { name: 'Movies', icon: Film, path: '/movies' },
+    { name: 'Messages', icon: MessageCircle, path: '/messages' },
+    { name: 'Favorites', icon: Heart, path: '/favorites' },
+    { name: 'Downloads', icon: Download, path: '/downloads' },
+    { name: 'Settings', icon: Settings, path: '/settings' },
   ];
 
   return (
@@ -23,11 +26,12 @@ const Sidebar = ({ onViewChange, currentView }) => {
             <nav className="nav-list">
               {navItems.map((item) => {
                 const Icon = item.icon;
+                const isActive = location.pathname === item.path;
                 return (
                   <div
                     key={item.name}
-                    onClick={() => onViewChange && onViewChange(item.view)}
-                    className={`nav-item ${currentView === item.view ? 'nav-item-active' : ''}`}
+                    onClick={() => navigate(item.path)}
+                    className={`nav-item ${isActive ? 'nav-item-active' : ''}`}
                     role="button"
                   >
                     <Icon className="nav-icon" />
@@ -45,14 +49,15 @@ const Sidebar = ({ onViewChange, currentView }) => {
         <div className="mobile-nav">
           {navItems.map((item) => {
             const Icon = item.icon;
+            const isActive = location.pathname === item.path;
             return (
               <div
                 key={item.name}
-                onClick={() => onViewChange && onViewChange(item.view)}
+                onClick={() => navigate(item.path)}
                 className="mobile-nav-item"
                 role="button"
               >
-                <Icon className={`mobile-nav-icon ${currentView === item.view ? 'mobile-nav-icon-active' : ''}`} />
+                <Icon className={`mobile-nav-icon ${isActive ? 'mobile-nav-icon-active' : ''}`} />
                 <span className="mobile-nav-text">{item.name}</span>
               </div>
             );
