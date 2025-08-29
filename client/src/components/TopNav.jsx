@@ -4,7 +4,7 @@ import { searchHistory } from '../utils/searchHistory';
 import { tmdbAPI } from '../services/tmdb';
 import './TopNav.css';
 
-const TopNav = ({ user, onLogout, onSearch }) => {
+const TopNav = ({ user, onLogout, onSearch, onMovieSelect }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [showMobileSearch, setShowMobileSearch] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -132,7 +132,7 @@ const TopNav = ({ user, onLogout, onSearch }) => {
                     <span>Suggestions</span>
                   </div>
                   {suggestions.map((movie) => (
-                    <div key={movie.id} className="suggestion-item movie-suggestion" onClick={() => handleSearch(movie.title)}>
+                    <div key={movie.id} className="suggestion-item movie-suggestion" onClick={() => onMovieSelect(movie.id)}>
                       <img src={movie.poster} alt={movie.title} className="suggestion-poster" />
                       <div className="suggestion-info">
                         <span className="suggestion-title">{movie.title}</span>

@@ -45,8 +45,10 @@ function App() {
     }
   };
 
-  const handleMovieClick = (movieId) => {
-    navigate(`/movie/${movieId}`); // Navigate to new movie details page
+  const handleMovieSelect = (movieId) => {
+    navigate(`/movie/${movieId}`);
+    setSearchResults(null); // Clear search results when navigating to movie details
+    setSearchQuery(''); // Clear search query
   };
 
   const handleSearch = async (query) => {
@@ -129,7 +131,7 @@ function App() {
   return (
     <div className="app">
       <Sidebar navigate={navigate} onOpenSettings={() => setShowSettingsModal(true)} />
-      <TopNav user={user} onLogout={handleLogout} onSearch={handleSearch} />
+      <TopNav user={user} onLogout={handleLogout} onSearch={handleSearch} onMovieSelect={handleMovieSelect} />
 
       {/* Main Content */}
       <div className="main-content">
