@@ -1,5 +1,5 @@
 .movie-section {
-  background-color: #1B1D2A;
+  background-color: var(--panel-color);
   padding: 2rem 1rem;
   margin: 2rem 0;
 }
@@ -11,14 +11,14 @@
 .section-title {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--text-color);
   margin-bottom: 0.5rem;
 }
 
 .title-underline {
   width: 60px;
   height: 3px;
-  background-color: #E50914;
+  background-color: var(--primary-color);
   border-radius: 2px;
 }
 
@@ -28,14 +28,14 @@
   align-items: center;
   justify-content: center;
   padding: 3rem 0;
-  color: #9CA3AF;
+  color: var(--muted-text-color);
 }
 
 .loading-spinner {
   width: 40px;
   height: 40px;
-  border: 3px solid #374151;
-  border-top: 3px solid #E50914;
+  border: 3px solid var(--secondary-panel-color);
+  border-top: 3px solid var(--primary-color);
   border-radius: 50%;
   animation: spin 1s linear infinite;
   margin-bottom: 1rem;
@@ -61,12 +61,12 @@
 
 .scroll-shadow-left {
   left: 0;
-  background: linear-gradient(to right, #1B1D2A, transparent);
+  background: linear-gradient(to right, var(--panel-color), transparent);
 }
 
 .scroll-shadow-right {
   right: 0;
-  background: linear-gradient(to left, #1B1D2A, transparent);
+  background: linear-gradient(to left, var(--panel-color), transparent);
 }
 
 .movies-scroll {
@@ -147,27 +147,27 @@
 }
 
 .btn-watch-overlay {
-  background-color: #E50914;
-  color: #ffffff;
+  background-color: var(--primary-color);
+  color: var(--text-color);
 }
 
 .btn-watch-overlay:hover {
-  background-color: #B8070F;
+  background-color: var(--primary-hover-color);
 }
 
 .btn-favorite {
   background-color: transparent;
-  color: #ffffff;
-  border: 1px solid #374151;
+  color: var(--text-color);
+  border: 1px solid var(--secondary-panel-color);
 }
 
 .btn-favorite:hover {
-  border-color: #E50914;
+  border-color: var(--primary-color);
   box-shadow: 0 0 10px rgba(229, 9, 20, 0.3);
 }
 
 .btn-favorite.favorited {
-  border-color: #E50914;
+  border-color: var(--primary-color);
   background-color: rgba(229, 9, 20, 0.1);
 }
 
@@ -178,8 +178,8 @@
 }
 
 .heart-icon.filled {
-  fill: #E50914;
-  color: #E50914;
+  fill: var(--primary-color);
+  color: var(--primary-color);
 }
 
 .movie-info {
@@ -189,7 +189,7 @@
 .movie-title {
   font-size: 0.875rem;
   font-weight: 600;
-  color: #ffffff;
+  color: var(--text-color);
   margin-bottom: 0.5rem;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -201,7 +201,7 @@
   align-items: center;
   justify-content: center;
   gap: 0.25rem;
-  color: #ffffff;
+  color: var(--text-color);
   font-size: 0.875rem;
   font-weight: 500;
 }

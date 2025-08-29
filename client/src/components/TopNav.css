@@ -17,7 +17,7 @@
 .topnav-logo h1 {
   font-size: 1.25rem;
   font-weight: 700;
-  color: #E50914;
+  color: var(--primary-color);
 }
 
 .topnav-search-desktop {
@@ -39,7 +39,7 @@
   transform: translateY(-50%);
   width: 1.25rem;
   height: 1.25rem;
-  color: #9ca3af;
+  color: var(--muted-text-color);
   pointer-events: none;
 }
 
@@ -47,19 +47,19 @@
   width: 100%;
   padding: 0.5rem 1rem 0.5rem 2.5rem;
   border-radius: 9999px;
-  background-color: #1B1D2A;
-  border: 1px solid #4b5563;
-  color: #ffffff;
+  background-color: var(--panel-color);
+  border: 1px solid var(--panel-border-color);
+  color: var(--text-color);
   transition: all 0.15s;
 }
 
 .search-input::placeholder {
-  color: #9ca3af;
+  color: var(--muted-text-color);
 }
 
 .search-input:focus {
   outline: none;
-  border-color: #E50914;
+  border-color: var(--primary-color);
   box-shadow: 0 0 0 2px rgba(229, 9, 20, 0.5);
 }
 
@@ -76,13 +76,13 @@
   border-radius: 9999px;
   background: none;
   border: none;
-  color: #d1d5db;
+  color: var(--muted-text-color);
   cursor: pointer;
   transition: background-color 0.15s;
 }
 
 .mobile-search-btn:hover {
-  background-color: #374151;
+  background-color: var(--panel-color);
 }
 
 .search-icon-mobile {
@@ -94,13 +94,13 @@
   width: 2rem;
   height: 2rem;
   border-radius: 9999px;
-  border: 2px solid #4b5563;
+  border: 2px solid var(--panel-border-color);
   cursor: pointer;
   transition: border-color 0.15s;
 }
 
 .user-avatar img:hover {
-  border-color: #E50914;
+  border-color: var(--primary-color);
 }
 
 .logout-btn {
@@ -109,15 +109,15 @@
   border-radius: 0.25rem;
   font-weight: 600;
   font-size: 0.875rem;
-  background-color: #E50914;
-  color: #ffffff;
+  background-color: var(--primary-color);
+  color: var(--text-color);
   border: none;
   cursor: pointer;
   transition: background-color 0.2s;
 }
 
 .logout-btn:hover {
-  background-color: #b8070f;
+  background-color: var(--primary-hover-color);
 }
 
 .mobile-search {
@@ -164,8 +164,8 @@
   top: 100%;
   left: 0;
   right: 0;
-  background: #1B1D2A;
-  border: 1px solid #374151;
+  background: var(--panel-color);
+  border: 1px solid var(--panel-border-color);
   border-radius: 8px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
   z-index: 1000;
@@ -178,7 +178,7 @@
 }
 
 .suggestions-section:not(:last-child) {
-  border-bottom: 1px solid #374151;
+  border-bottom: 1px solid var(--panel-border-color);
 }
 
 .suggestions-header {
@@ -188,13 +188,13 @@
   padding: 0.5rem 1rem;
   font-size: 0.875rem;
   font-weight: 600;
-  color: #9CA3AF;
+  color: var(--muted-text-color);
 }
 
 .clear-history {
   background: none;
   border: none;
-  color: #E50914;
+  color: var(--primary-color);
   cursor: pointer;
   font-size: 0.75rem;
   padding: 0.25rem 0.5rem;
@@ -220,20 +220,20 @@
 }
 
 .history-item {
-  color: #D1D5DB;
+  color: var(--muted-text-color);
 }
 
 .suggestion-icon {
   width: 1rem;
   height: 1rem;
-  color: #9CA3AF;
+  color: var(--muted-text-color);
   flex-shrink: 0;
 }
 
 .remove-item {
   background: none;
   border: none;
-  color: #9CA3AF;
+  color: var(--muted-text-color);
   cursor: pointer;
   padding: 0.25rem;
   border-radius: 4px;
@@ -247,7 +247,7 @@
 }
 
 .movie-suggestion {
-  color: #ffffff;
+  color: var(--text-color);
 }
 
 .suggestion-poster {
@@ -272,7 +272,7 @@
 
 .suggestion-year {
   font-size: 0.75rem;
-  color: #9CA3AF;
+  color: var(--muted-text-color);
 }
 
 /* Responsive */

@@ -1,8 +1,8 @@
 /* App Container */
 .app {
   min-height: 100vh;
-  background-color: #0D0F15;
-  color: #ffffff;
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
 
 /* Login Styles */
@@ -11,7 +11,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #0D0F15;
+  background-color: var(--background-color);
   padding: 1rem;
 }
 
@@ -20,7 +20,7 @@
   max-width: 28rem;
   width: 100%;
   border-radius: 0.5rem;
-  background-color: #1B1D2A;
+  background-color: var(--panel-color);
 }
 
 .login-header {
@@ -32,11 +32,11 @@
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
-  color: #E50914;
+  color: var(--primary-color);
 }
 
 .login-subtitle {
-  color: #d1d5db;
+  color: var(--muted-text-color);
   font-size: 0.875rem;
 }
 
@@ -50,15 +50,15 @@
   gap: 0.75rem;
   border-radius: 0.5rem;
   font-weight: 600;
-  background-color: #E50914;
-  color: #ffffff;
+  background-color: var(--primary-color);
+  color: var(--text-color);
   border: none;
   cursor: pointer;
   transition: background-color 0.2s;
 }
 
 .login-button:hover {
-  background-color: #b8070f;
+  background-color: var(--primary-hover-color);
 }
 
 .google-icon {
@@ -81,7 +81,7 @@
   font-size: 1.875rem;
   font-weight: 700;
   margin-bottom: 1.5rem;
-  color: #E50914;
+  color: var(--primary-color);
 }
 
 /* Movie Grid */
@@ -94,7 +94,7 @@
 .movie-card {
   border-radius: 0.5rem;
   overflow: hidden;
-  background-color: #1B1D2A;
+  background-color: var(--panel-color);
   cursor: pointer;
   transition: transform 0.15s;
 }
@@ -108,13 +108,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(to bottom right, #E50914, #9333ea);
+  background: linear-gradient(to bottom right, var(--primary-color), #9333ea);
 }
 
 .movie-number {
   font-size: 1.25rem;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--text-color);
 }
 
 .movie-info {
@@ -123,7 +123,7 @@
 
 .movie-title {
   font-weight: 600;
-  color: #ffffff;
+  color: var(--text-color);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -132,7 +132,7 @@
 
 .movie-year {
   font-size: 0.75rem;
-  color: #9ca3af;
+  color: var(--muted-text-color);
   margin-top: 0.25rem;
 }
 
@@ -231,13 +231,13 @@
 }
 
 .search-header h2 {
-  color: #ffffff;
+  color: var(--text-color);
   font-size: 1.5rem;
   font-weight: 600;
 }
 
 .clear-search {
-  background: #E50914;
+  background: var(--primary-color);
   color: white;
   border: none;
   padding: 0.5rem 1rem;
@@ -248,7 +248,7 @@
 }
 
 .clear-search:hover {
-  background: #B8070F;
+  background: var(--primary-hover-color);
 }
 
 @media (max-width: 768px) {
@@ -272,13 +272,13 @@
 }
 
 .favorites-header h2 {
-  color: #ffffff;
+  color: var(--text-color);
   font-size: 1.5rem;
   font-weight: 600;
 }
 
 .refresh-favorites {
-  background: #E50914;
+  background: var(--primary-color);
   color: white;
   border: none;
   padding: 0.5rem 1rem;
@@ -289,7 +289,7 @@
 }
 
 .refresh-favorites:hover {
-  background: #B8070F;
+  background: var(--primary-hover-color);
 }
 
 /* Sidebar Button Styles */

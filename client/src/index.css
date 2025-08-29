@@ -6,6 +6,7 @@
   --primary-hover-color: #b8070f;
   --muted-text-color: #8A92A3;
   --panel-color: #10141E;
+  --secondary-panel-color: #374151;
   --panel-border-color: rgba(255, 255, 255, 0.1);
 }
 
@@ -16,6 +17,7 @@
   --primary-hover-color: #b8070f;
   --muted-text-color: #6B7280;
   --panel-color: #FFFFFF;
+  --secondary-panel-color: #e5e7eb;
   --panel-border-color: rgba(0, 0, 0, 0.1);
 }
 
