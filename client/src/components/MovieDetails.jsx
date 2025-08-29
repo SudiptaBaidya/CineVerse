@@ -85,7 +85,8 @@ const MovieDetails = ({ movieId, onClose, onMovieClick, user }) => {
         
         {/* Hero Section */}
         <div className="movie-hero" style={{ backgroundImage: `url(${movie.backdrop})` }}>
-          <div className="hero-overlay"></div>
+          {/* Removed the purple banner overlay */}
+          {/* <div className="hero-overlay"></div> */}
           <div className="hero-content">
             <div className="movie-poster">
               <img src={movie.poster} alt={movie.title} />
