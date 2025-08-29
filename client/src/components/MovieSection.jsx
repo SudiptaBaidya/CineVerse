@@ -8,7 +8,6 @@ import './MovieSection.css';
 const MovieSection = ({ title = "You Might Like", type = "recommendations", movies: propMovies, onMovieClick, favorites = [], onToggleFavorite, genreId }) => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [hoveredMovie, setHoveredMovie] = useState(null);
   const { includeAdult } = useContext(SettingsContext);
 
   useEffect(() => {
@@ -77,20 +76,6 @@ const MovieSection = ({ title = "You Might Like", type = "recommendations", movi
     if (onMovieClick) {
       onMovieClick(movieId);
     }
-  };
-
-  // Add debug logs for hover events
-  const handleHoverStart = (movieId) => {
-    console.log('Hover start on movie:', movieId);
-    setHoveredMovie(movieId);
-  };
-
-  const handleHoverEnd = () => {
-    console.log('Hover end');
-    // Add a small delay before hiding the overlay to allow clicking buttons
-    setTimeout(() => {
-      setHoveredMovie(null);
-    }, 300);
   };
 
   const sectionVariants = {
@@ -171,8 +156,6 @@ const MovieSection = ({ title = "You Might Like", type = "recommendations", movi
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
               whileHover={{ scale: 1.05 }}
-              onHoverStart={() => handleHoverStart(movie.id)}
-              onHoverEnd={() => handleHoverEnd()}
               onClick={(e) => handleMovieClick(movie.id, e)}
             >
               <div className="movie-poster-container">
@@ -183,43 +166,41 @@ const MovieSection = ({ title = "You Might Like", type = "recommendations", movi
                   loading="lazy"
                 />
                 
-                {hoveredMovie === movie.id && (
+                <motion.div 
+                  className="movie-overlay"
+                  variants={overlayVariants}
+                  initial="hidden"
+                  animate="visible"
+                >
                   <motion.div 
-                    className="movie-overlay"
-                    variants={overlayVariants}
+                    className="overlay-buttons"
+                    variants={buttonVariants}
                     initial="hidden"
                     animate="visible"
                   >
-                    <motion.div 
-                      className="overlay-buttons"
-                      variants={buttonVariants}
-                      initial="hidden"
-                      animate="visible"
+                    <button 
+                      className="btn-watch-overlay"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleMovieClick(movie.id, e);
+                      }}
                     >
-                      <button 
-                        className="btn-watch-overlay"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleMovieClick(movie.id, e);
-                        }}
-                      >
-                        <Play className="btn-icon" />
-                        Watch
-                      </button>
-                      <motion.button 
-                        className={`btn-favorite ${isFavorite(movie.id) ? 'favorited' : ''}`}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          onToggleFavorite && onToggleFavorite(movie);
-                        }}
-                        whileTap={{ scale: 0.9 }}
-                      >
-                        <Heart className={`heart-icon ${isFavorite(movie.id) ? 'filled' : ''}`} />
-                        {isFavorite(movie.id) ? 'Remove' : 'Favorite'}
-                      </motion.button>
-                    </motion.div>
+                      <Play className="btn-icon" />
+                      Watch
+                    </button>
+                    <motion.button 
+                      className={`btn-favorite ${isFavorite(movie.id) ? 'favorited' : ''}`}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onToggleFavorite && onToggleFavorite(movie);
+                      }}
+                      whileTap={{ scale: 0.9 }}
+                    >
+                      <Heart className={`heart-icon ${isFavorite(movie.id) ? 'filled' : ''}`} />
+                      {isFavorite(movie.id) ? 'Remove' : 'Favorite'}
+                    </motion.button>
                   </motion.div>
-                )}
+                </motion.div>
               </div>
               
               <div className="movie-info">
