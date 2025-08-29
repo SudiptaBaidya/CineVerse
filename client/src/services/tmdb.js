@@ -133,7 +133,6 @@ export const tmdbAPI = {
     }
   },
 
-  
   // Get movie details with credits and videos
   getMovieDetails: async (movieId) => {
     try {
@@ -183,3 +182,4 @@ export const tmdbAPI = {
       return null;
     }
   }
+};
