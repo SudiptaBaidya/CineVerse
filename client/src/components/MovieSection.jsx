@@ -1,13 +1,15 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { motion } from 'framer-motion';
 import { Play, Heart, Star } from 'lucide-react';
 import { tmdbAPI } from '../services/tmdb';
+import { SettingsContext } from '../contexts/SettingsContext';
 import './MovieSection.css';
 
 const MovieSection = ({ title = "You Might Like", type = "recommendations", movies: propMovies, onMovieClick, favorites = [], onToggleFavorite }) => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [hoveredMovie, setHoveredMovie] = useState(null);
+  const { includeAdult } = useContext(SettingsContext);
 
   useEffect(() => {
     if (propMovies) {
@@ -23,14 +25,14 @@ const MovieSection = ({ title = "You Might Like", type = "recommendations", movi
         
         switch (type) {
           case 'trending':
-            movieData = await tmdbAPI.getTrending();
+            movieData = await tmdbAPI.getTrending(includeAdult);
             break;
           case 'popular':
-            movieData = await tmdbAPI.getPopular();
+            movieData = await tmdbAPI.getPopular(includeAdult);
             break;
           case 'recommendations':
           default:
-            movieData = await tmdbAPI.getRecommendations();
+            movieData = await tmdbAPI.getRecommendations(undefined, includeAdult);
             break;
         }
         
@@ -58,7 +60,7 @@ const MovieSection = ({ title = "You Might Like", type = "recommendations", movi
     };
 
     fetchMovies();
-  }, [type, propMovies]);
+  }, [type, propMovies, includeAdult]);
 
   const isFavorite = (movieId) => {
     return favorites.some(fav => fav.id === movieId);

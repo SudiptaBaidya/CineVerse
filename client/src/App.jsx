@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { signInWithPopup, signOut } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, googleProvider } from './firebase';
@@ -9,6 +9,9 @@ import TopNav from './components/TopNav';
 import HeroBanner from './components/HeroBanner';
 import MovieSection from './components/MovieSection';
 import MovieDetails from './components/MovieDetails';
+import Settings from './components/Settings';
+import { ThemeProvider } from './contexts/ThemeContext';
+import { SettingsContext, SettingsProvider } from './contexts/SettingsContext';
 import './App.css';
 
 function App() {
@@ -18,6 +21,8 @@ function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [currentView, setCurrentView] = useState('home');
   const [favorites, setFavorites] = useState([]);
+  const [isSettingsOpen, setSettingsOpen] = useState(false);
+  const { includeAdult } = useContext(SettingsContext);
 
   const signInWithGoogle = async () => {
     try {
@@ -47,7 +52,7 @@ function App() {
   const handleSearch = async (query) => {
     setSearchQuery(query);
     try {
-      const results = await tmdbAPI.searchMovies(query);
+      const results = await tmdbAPI.searchMovies(query, includeAdult);
       setSearchResults(results);
     } catch (error) {
       console.error('Search failed:', error);
@@ -61,9 +66,13 @@ function App() {
   };
 
   const handleViewChange = (view) => {
-    setCurrentView(view);
-    setSearchResults(null);
-    setSearchQuery('');
+    if (view === 'settings') {
+      setSettingsOpen(true);
+    } else {
+      setCurrentView(view);
+      setSearchResults(null);
+      setSearchQuery('');
+    }
   };
 
   const loadFavorites = async () => {
@@ -168,8 +177,24 @@ function App() {
           onMovieClick={handleMovieClick}
         />
       )}
+
+      {/* Settings Modal */}
+      {isSettingsOpen && (
+        <Settings 
+          user={user}
+          onClose={() => setSettingsOpen(false)}
+        />
+      )}
     </div>
   );
 }
 
-export default App;
+const AppWrapper = () => (
+  <ThemeProvider>
+    <SettingsProvider>
+      <App />
+    </SettingsProvider>
+  </ThemeProvider>
+);
+
+export default AppWrapper;

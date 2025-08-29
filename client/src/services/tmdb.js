@@ -17,9 +17,9 @@ const mapMovie = (movie) => ({
 
 export const tmdbAPI = {
   // Get trending movies
-  getTrending: async () => {
+  getTrending: async (includeAdult = false) => {
     try {
-      const response = await fetch(`${BASE_URL}/trending/movie/week?api_key=${API_KEY}`);
+      const response = await fetch(`${BASE_URL}/trending/movie/week?api_key=${API_KEY}&include_adult=${includeAdult}`);
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const data = await response.json();
       return data.results?.map(mapMovie) || [];
@@ -30,9 +30,9 @@ export const tmdbAPI = {
   },
 
   // Get popular movies
-  getPopular: async () => {
+  getPopular: async (includeAdult = false) => {
     try {
-      const response = await fetch(`${BASE_URL}/movie/popular?api_key=${API_KEY}`);
+      const response = await fetch(`${BASE_URL}/movie/popular?api_key=${API_KEY}&include_adult=${includeAdult}`);
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const data = await response.json();
       return data.results?.map(mapMovie) || [];
@@ -43,9 +43,9 @@ export const tmdbAPI = {
   },
 
   // Get movie recommendations
-  getRecommendations: async (movieId = 550) => {
+  getRecommendations: async (movieId = 550, includeAdult = false) => {
     try {
-      const response = await fetch(`${BASE_URL}/movie/${movieId}/recommendations?api_key=${API_KEY}`);
+      const response = await fetch(`${BASE_URL}/movie/${movieId}/recommendations?api_key=${API_KEY}&include_adult=${includeAdult}`);
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const data = await response.json();
       return data.results?.map(mapMovie) || [];
@@ -56,9 +56,9 @@ export const tmdbAPI = {
   },
 
   // Search movies
-  searchMovies: async (query) => {
+  searchMovies: async (query, includeAdult = false) => {
     try {
-      const response = await fetch(`${BASE_URL}/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(query)}`);
+      const response = await fetch(`${BASE_URL}/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(query)}&include_adult=${includeAdult}`);
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const data = await response.json();
       return data.results?.map(mapMovie) || [];
