@@ -70,14 +70,6 @@ const MovieSection = ({ title = "You Might Like", type = "recommendations", movi
     return favorites.some(fav => fav.id === movieId);
   };
 
-  const handleMovieClick = (movieId, event) => {
-    event.preventDefault();
-    // Movie clicked
-    if (onMovieClick) {
-      onMovieClick(movieId);
-    }
-  };
-
   const sectionVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
@@ -156,7 +148,7 @@ const MovieSection = ({ title = "You Might Like", type = "recommendations", movi
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
               whileHover={{ scale: 1.05 }}
-              onClick={(e) => handleMovieClick(movie.id, e)}
+              onClick={(e) => onMovieClick(movie.id)}
             >
               <div className="movie-poster-container">
                 <img 
@@ -182,7 +174,7 @@ const MovieSection = ({ title = "You Might Like", type = "recommendations", movi
                       className="btn-watch-overlay"
                       onClick={(e) => {
                         e.stopPropagation();
-                        handleMovieClick(movie.id, e);
+                        onMovieClick(movie.id);
                       }}
                     >
                       <Play className="btn-icon" />

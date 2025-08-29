@@ -155,7 +155,7 @@ function App() {
               <>
                 <HeroBanner onMovieClick={handleMovieSelect} favorites={favorites} onToggleFavorite={toggleFavorite} />
                 <MovieSection title="You Might Like" type="recommendations" onMovieClick={handleMovieSelect} favorites={favorites} onToggleFavorite={toggleFavorite} />
-                <MovieSection title="Trending Now" type="trending" onMovieClick={handleMovieClick} favorites={favorites} onToggleFavorite={toggleFavorite} />
+                <MovieSection title="Trending Now" type="trending" onMovieClick={handleMovieSelect} favorites={favorites} onToggleFavorite={toggleFavorite} />
                 <MovieSection title="Popular Movies" type="popular" onMovieClick={handleMovieSelect} favorites={favorites} onToggleFavorite={toggleFavorite} />
                 <MovieSection title="Action" type="genre" genreId={28} onMovieClick={handleMovieSelect} favorites={favorites} onToggleFavorite={toggleFavorite} />
                 <MovieSection title="Comedy" type="genre" genreId={35} onMovieClick={handleMovieSelect} favorites={favorites} onToggleFavorite={toggleFavorite} />
