@@ -10,6 +10,7 @@ import HeroBanner from './components/HeroBanner';
 import MovieSection from './components/MovieSection';
 import MovieDetails from './components/MovieDetails';
 import MoviesPage from './pages/MoviesPage';
+import MessagesPage from './pages/MessagesPage';
 import Settings from './components/Settings';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { SettingsContext, SettingsProvider } from './contexts/SettingsContext';
@@ -166,6 +167,8 @@ function App() {
             favorites={favorites} 
             onToggleFavorite={toggleFavorite} 
           />
+        ) : currentView === 'messages' ? (
+          <MessagesPage user={user} />
         ) : (
           <>
             <HeroBanner onMovieClick={handleMovieClick} favorites={favorites} onToggleFavorite={toggleFavorite} />
@@ -185,6 +188,7 @@ function App() {
           movieId={selectedMovieId} 
           onClose={handleCloseMovieDetails}
           onMovieClick={handleMovieClick}
+          user={user} // Pass the user prop here
         />
       )}
 

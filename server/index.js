@@ -32,6 +32,30 @@ try {
   console.error('Error loading user routes:', error);
 }
 
+try {
+  const notificationRoutes = require('./routes/notifications');
+  app.use('/api/notifications', notificationRoutes);
+  console.log('Notification routes loaded successfully');
+} catch (error) {
+  console.error('Error loading notification routes:', error);
+}
+
+try {
+  const recommendationRoutes = require('./routes/recommendations');
+  app.use('/api/recommendations', recommendationRoutes);
+  console.log('Recommendation routes loaded successfully');
+} catch (error) {
+  console.error('Error loading recommendation routes:', error);
+}
+
+try {
+  const watchPartyRoutes = require('./routes/watchparties');
+  app.use('/api/watchparties', watchPartyRoutes);
+  console.log('Watch Party routes loaded successfully');
+} catch (error) {
+  console.error('Error loading Watch Party routes:', error);
+}
+
 // Test route
 app.get('/api/test', (req, res) => {
   res.json({ message: 'CineVerse API is running!' });

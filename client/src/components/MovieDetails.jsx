@@ -1,12 +1,16 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Play, Download, Star, Clock, Youtube } from 'lucide-react';
+import { Play, Download, Star, Clock, Youtube, MessageSquarePlus, CalendarPlus } from 'lucide-react';
+import RecommendMovieModal from './RecommendMovieModal';
+import CreateWatchPartyModal from './CreateWatchPartyModal';
 import { tmdbAPI } from '../services/tmdb';
 import './MovieDetails.css';
 
-const MovieDetails = ({ movieId, onClose, onMovieClick }) => {
+const MovieDetails = ({ movieId, onClose, onMovieClick, user }) => {
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [showRecommendModal, setShowRecommendModal] = useState(false);
+  const [showCreateWatchPartyModal, setShowCreateWatchPartyModal] = useState(false);
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
@@ -117,6 +121,14 @@ const MovieDetails = ({ movieId, onClose, onMovieClick }) => {
                 <button className="btn-download">
                   <Download className="btn-icon" />
                   Download
+                </button>
+                <button className="btn-recommend" onClick={() => setShowRecommendModal(true)}>
+                  <MessageSquarePlus className="btn-icon" />
+                  Recommend
+                </button>
+                <button className="btn-create-party" onClick={() => setShowCreateWatchPartyModal(true)}>
+                  <CalendarPlus className="btn-icon" />
+                  Create Watch Party
                 </button>
                 {movie.trailer && (
                   <button className="btn-trailer" onClick={openTrailer}>
@@ -240,6 +252,24 @@ const MovieDetails = ({ movieId, onClose, onMovieClick }) => {
           )}
         </div>
       </motion.div>
+
+      {/* Recommend Movie Modal */}
+      {showRecommendModal && (
+        <RecommendMovieModal
+          movie={movie}
+          senderId={user?.uid}
+          onClose={() => setShowRecommendModal(false)}
+        />
+      )}
+
+      {/* Create Watch Party Modal */}
+      {showCreateWatchPartyModal && (
+        <CreateWatchPartyModal
+          movie={movie}
+          organizerId={user?.uid}
+          onClose={() => setShowCreateWatchPartyModal(false)}
+        />
+      )}
     </motion.div>
   );
 };
