@@ -9,6 +9,7 @@ import TopNav from './components/TopNav';
 import HeroBanner from './components/HeroBanner';
 import MovieSection from './components/MovieSection';
 import MovieDetails from './components/MovieDetails';
+import MoviesPage from './pages/MoviesPage';
 import Settings from './components/Settings';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { SettingsContext, SettingsProvider } from './contexts/SettingsContext';
@@ -159,12 +160,21 @@ function App() {
               onToggleFavorite={toggleFavorite}
             />
           </div>
+        ) : currentView === 'movies' ? (
+          <MoviesPage 
+            onMovieClick={handleMovieClick} 
+            favorites={favorites} 
+            onToggleFavorite={toggleFavorite} 
+          />
         ) : (
           <>
             <HeroBanner onMovieClick={handleMovieClick} favorites={favorites} onToggleFavorite={toggleFavorite} />
             <MovieSection title="You Might Like" type="recommendations" onMovieClick={handleMovieClick} favorites={favorites} onToggleFavorite={toggleFavorite} />
             <MovieSection title="Trending Now" type="trending" onMovieClick={handleMovieClick} favorites={favorites} onToggleFavorite={toggleFavorite} />
             <MovieSection title="Popular Movies" type="popular" onMovieClick={handleMovieClick} favorites={favorites} onToggleFavorite={toggleFavorite} />
+            <MovieSection title="Action" type="genre" genreId={28} onMovieClick={handleMovieClick} favorites={favorites} onToggleFavorite={toggleFavorite} />
+            <MovieSection title="Comedy" type="genre" genreId={35} onMovieClick={handleMovieClick} favorites={favorites} onToggleFavorite={toggleFavorite} />
+            <MovieSection title="Horror" type="genre" genreId={27} onMovieClick={handleMovieClick} favorites={favorites} onToggleFavorite={toggleFavorite} />
           </>
         )}
       </div>

@@ -68,6 +68,71 @@ export const tmdbAPI = {
     }
   },
 
+  // Get now playing movies
+  getNowPlaying: async (includeAdult = false) => {
+    try {
+      const response = await fetch(`${BASE_URL}/movie/now_playing?api_key=${API_KEY}&include_adult=${includeAdult}`);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const data = await response.json();
+      return data.results?.map(mapMovie) || [];
+    } catch (error) {
+      console.error('Error fetching now playing movies:', error);
+      return [];
+    }
+  },
+
+  // Get upcoming movies
+  getUpcoming: async (includeAdult = false) => {
+    try {
+      const response = await fetch(`${BASE_URL}/movie/upcoming?api_key=${API_KEY}&include_adult=${includeAdult}`);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const data = await response.json();
+      return data.results?.map(mapMovie) || [];
+    } catch (error) {
+      console.error('Error fetching upcoming movies:', error);
+      return [];
+    }
+  },
+
+  // Get top rated movies
+  getTopRated: async (includeAdult = false) => {
+    try {
+      const response = await fetch(`${BASE_URL}/movie/top_rated?api_key=${API_KEY}&include_adult=${includeAdult}`);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const data = await response.json();
+      return data.results?.map(mapMovie) || [];
+    } catch (error) {
+      console.error('Error fetching top rated movies:', error);
+      return [];
+    }
+  },
+
+  // Get movie genres
+  getGenres: async () => {
+    try {
+      const response = await fetch(`${BASE_URL}/genre/movie/list?api_key=${API_KEY}`);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const data = await response.json();
+      return data.genres || [];
+    } catch (error) {
+      console.error('Error fetching genres:', error);
+      return [];
+    }
+  },
+
+  // Get movies by genre
+  getMoviesByGenre: async (genreId, includeAdult = false) => {
+    try {
+      const response = await fetch(`${BASE_URL}/discover/movie?api_key=${API_KEY}&with_genres=${genreId}&include_adult=${includeAdult}`);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const data = await response.json();
+      return data.results?.map(mapMovie) || [];
+    } catch (error) {
+      console.error(`Error fetching movies for genre ${genreId}:`, error);
+      return [];
+    }
+  },
+
   // Get movie details with credits and videos
   getMovieDetails: async (movieId) => {
     try {

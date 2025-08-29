@@ -5,7 +5,7 @@ import { tmdbAPI } from '../services/tmdb';
 import { SettingsContext } from '../contexts/SettingsContext';
 import './MovieSection.css';
 
-const MovieSection = ({ title = "You Might Like", type = "recommendations", movies: propMovies, onMovieClick, favorites = [], onToggleFavorite }) => {
+const MovieSection = ({ title = "You Might Like", type = "recommendations", movies: propMovies, onMovieClick, favorites = [], onToggleFavorite, genreId }) => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [hoveredMovie, setHoveredMovie] = useState(null);
@@ -31,6 +31,11 @@ const MovieSection = ({ title = "You Might Like", type = "recommendations", movi
             movieData = await tmdbAPI.getPopular(includeAdult);
             break;
           case 'recommendations':
+            movieData = await tmdbAPI.getRecommendations(undefined, includeAdult);
+            break;
+          case 'genre':
+            movieData = await tmdbAPI.getMoviesByGenre(genreId, includeAdult);
+            break;
           default:
             movieData = await tmdbAPI.getRecommendations(undefined, includeAdult);
             break;
@@ -60,7 +65,7 @@ const MovieSection = ({ title = "You Might Like", type = "recommendations", movi
     };
 
     fetchMovies();
-  }, [type, propMovies, includeAdult]);
+  }, [type, propMovies, includeAdult, genreId]);
 
   const isFavorite = (movieId) => {
     return favorites.some(fav => fav.id === movieId);
