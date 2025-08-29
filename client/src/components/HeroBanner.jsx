@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Play, Download, Star, Heart } from 'lucide-react';
 import { tmdbAPI } from '../services/tmdb';
@@ -7,13 +7,16 @@ import './HeroBanner.css';
 const HeroBanner = ({ onMovieClick, favorites = [], onToggleFavorite }) => {
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [trendingMovies, setTrendingMovies] = useState([]);
+  const movieIndexRef = useRef(0);
 
   useEffect(() => {
-    const fetchHeroMovie = async () => {
+    const fetchTrendingMovies = async () => {
       try {
-        const trendingMovies = await tmdbAPI.getTrending();
-        if (trendingMovies?.length > 0) {
-          setMovie(trendingMovies[0]);
+        const movies = await tmdbAPI.getTrending();
+        if (movies?.length > 0) {
+          setTrendingMovies(movies);
+          setMovie(movies[0]); // Set the first movie initially
         }
       } catch (error) {
         console.error('Error fetching hero movie:', error);
@@ -34,6 +37,17 @@ const HeroBanner = ({ onMovieClick, favorites = [], onToggleFavorite }) => {
 
     fetchHeroMovie();
   }, []);
+
+  useEffect(() => {
+    if (trendingMovies.length > 0) {
+      const interval = setInterval(() => {
+        movieIndexRef.current = (movieIndexRef.current + 1) % trendingMovies.length;
+        setMovie(trendingMovies[movieIndexRef.current]);
+      }, 90000); // Change movie every 90 seconds (1.5 minutes)
+
+      return () => clearInterval(interval);
+    }
+  }, [trendingMovies]);
 
   const containerVariants = {
     hidden: { opacity: 0 },
