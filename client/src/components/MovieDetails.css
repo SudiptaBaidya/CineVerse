@@ -75,7 +75,7 @@
 /* Hero Section */
 .movie-hero {
   position: relative;
-  height: 250px;
+  height: 350px;
   background-size: cover;
   background-position: center;
   display: flex;
@@ -100,7 +100,6 @@
   flex-shrink: 0;
   position: relative; /* Ensure poster has proper positioning context */
   z-index: 2; /* Ensure poster is above overlay but below content if needed */
-  background: transparent !important; /* Temporary: for debugging purple overlay */
 }
 
 .movie-poster img {
@@ -177,6 +176,7 @@
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
+  z-index: 10; /* Ensure buttons are on top */
 }
 
 .btn-watch,
