@@ -109,7 +109,7 @@ const MovieDetails = ({ movieId, onClose, onMovieClick, user }) => {
               </div>
               <div className="action-buttons">
                 {movie.trailer ? (
-                  <button className="btn-watch" onClick={openTrailer}>
+                  <button className="btn-watch">
                     <Play className="btn-icon" />
                     Watch Now
                   </button>

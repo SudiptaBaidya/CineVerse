@@ -8,7 +8,7 @@ import Sidebar from './components/Sidebar';
 import TopNav from './components/TopNav';
 import HeroBanner from './components/HeroBanner';
 import MovieSection from './components/MovieSection';
-import MovieDetails from './components/MovieDetails';
+
 import MoviesPage from './pages/MoviesPage';
 import MessagesPage from './pages/MessagesPage';
 import DownloadsPage from './pages/DownloadsPage';
@@ -45,12 +45,10 @@ function App() {
   };
 
   const handleMovieClick = (movieId) => {
-    setSelectedMovieId(movieId);
+    // setSelectedMovieId(movieId);
   };
 
-  const handleCloseMovieDetails = () => {
-    setSelectedMovieId(null);
-  };
+  
 
   const handleSearch = async (query) => {
     setSearchQuery(query);
@@ -185,15 +183,7 @@ function App() {
         )}
       </div>
 
-      {/* Movie Details Modal */}
-      {selectedMovieId && (
-        <MovieDetails 
-          movieId={selectedMovieId} 
-          onClose={handleCloseMovieDetails}
-          onMovieClick={handleMovieClick}
-          user={user} // Pass the user prop here
-        />
-      )}
+      
 
       {/* Settings Modal */}
       {isSettingsOpen && (
