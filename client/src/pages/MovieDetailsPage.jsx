@@ -204,55 +204,54 @@ const MovieDetailsPage = ({ user, onMovieClick }) => {
                     <span key={lang.iso_639_1} className="language-tag">{lang.english_name}</span>
                   ))}
                 </div>
+              }
+            </section>
+          )}
+
+          {/* Cast */}
+          {movie.cast?.length > 0 && (
+            <section className="movie-details-cast-section">
+              <h2>Cast</h2>
+              <div className="cast-scroll">
+                {movie.cast.map(person => (
+                  <div key={person.id} className="cast-card">
+                    <div className="cast-image">
+                      {person.profileImage ? (
+                        <img src={person.profileImage} alt={person.name} />
+                      ) : (
+                        <div className="no-image">No Image</div>
+                      )}
+                    </div>
+                    <div className="cast-info">
+                      <h4>{person.name}</h4>
+                      <p>{person.character}</p>
+                    </div>
+                  </div>
+                ))}
               </div>
-            )}
-          </section>
-        )}
+            </section>
+          )}
 
-        {/* Cast */}
-        {movie.cast?.length > 0 && (
-          <section className="movie-details-cast-section">
-            <h2>Cast</h2>
-            <div className="cast-scroll">
-              {movie.cast.map(person => (
-                <div key={person.id} className="cast-card">
-                  <div className="cast-image">
-                    {person.profileImage ? (
-                      <img src={person.profileImage} alt={person.name} />
-                    ) : (
-                      <div className="no-image">No Image</div>
-                    )}
+          {/* Crew */}
+          {movie.crew?.length > 0 && (
+            <section className="movie-details-crew-section">
+              <h2>Crew</h2>
+              <div className="crew-scroll">
+                {movie.crew.map(person => (
+                  <div key={`${person.id}-${person.job}`} className="crew-card">
+                    <div className="crew-image">
+                      {person.profileImage ? (
+                        <img src={person.profileImage} alt={person.name} />
+                      ) : (
+                        <div className="no-image">No Image</div>
+                      )}
+                    </div>
+                    <div className="crew-info">
+                      <h4>{person.name}</h4>
+                      <p>{person.job}</p>
+                    </div>
                   </div>
-                  <div className="cast-info">
-                    <h4>{person.name}</h4>
-                    <p>{person.character}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* Crew */}
-        {movie.crew?.length > 0 && (
-          <section className="movie-details-crew-section">
-            <h2>Crew</h2>
-            <div className="crew-scroll">
-              {movie.crew.map(person => (
-                <div key={`${person.id}-${person.job}`} className="crew-card">
-                  <div className="crew-image">
-                    {person.profileImage ? (
-                      <img src={person.profileImage} alt={person.name} />
-                    ) : (
-                      <div className="no-image">No Image</div>
-                    )}
-                  </div>
-                  <div className="crew-info">
-                    <h4>{person.name}</h4>
-                    <p>{person.job}</p>
-                  </div>
-                )
-                )}
+                ))}
               </div>
             </section>
           )}
