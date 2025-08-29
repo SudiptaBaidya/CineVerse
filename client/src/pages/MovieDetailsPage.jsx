@@ -204,9 +204,10 @@ const MovieDetailsPage = ({ user, onMovieClick }) => {
                     <span key={lang.iso_639_1} className="language-tag">{lang.english_name}</span>
                   ))}
                 </div>
-              }
-            </section>
-          )}
+              </div>
+            )}
+          </section>
+        )}
 
           {/* Cast */}
           {movie.cast?.length > 0 && (
