@@ -80,7 +80,10 @@ const MovieSection = ({ title = "You Might Like", type = "recommendations", movi
 
   const handleHoverEnd = () => {
     console.log('Hover end');
-    setHoveredMovie(null);
+    // Add a small delay before hiding the overlay to allow clicking buttons
+    setTimeout(() => {
+      setHoveredMovie(null);
+    }, 300);
   };
 
   const sectionVariants = {
