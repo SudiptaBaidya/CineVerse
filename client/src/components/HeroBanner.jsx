@@ -43,7 +43,7 @@ const HeroBanner = ({ onMovieClick, favorites = [], onToggleFavorite }) => {
       const interval = setInterval(() => {
         movieIndexRef.current = (movieIndexRef.current + 1) % trendingMovies.length;
         setMovie(trendingMovies[movieIndexRef.current]);
-      }, 90000); // Change movie every 90 seconds (1.5 minutes)
+      }, 10000); // Change movie every 10 seconds
 
       return () => clearInterval(interval);
     }
