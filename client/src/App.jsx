@@ -146,20 +146,20 @@ function App() {
                 <MovieSection 
                   title={`Found ${searchResults.length} movies`} 
                   movies={searchResults} 
-                  onMovieClick={handleMovieClick}
+                  onMovieClick={handleMovieSelect}
                   favorites={favorites}
                   onToggleFavorite={toggleFavorite}
                 />
               </div>
             ) : (
               <>
-                <HeroBanner onMovieClick={handleMovieClick} favorites={favorites} onToggleFavorite={toggleFavorite} />
-                <MovieSection title="You Might Like" type="recommendations" onMovieClick={handleMovieClick} favorites={favorites} onToggleFavorite={toggleFavorite} />
+                <HeroBanner onMovieClick={handleMovieSelect} favorites={favorites} onToggleFavorite={toggleFavorite} />
+                <MovieSection title="You Might Like" type="recommendations" onMovieClick={handleMovieSelect} favorites={favorites} onToggleFavorite={toggleFavorite} />
                 <MovieSection title="Trending Now" type="trending" onMovieClick={handleMovieClick} favorites={favorites} onToggleFavorite={toggleFavorite} />
-                <MovieSection title="Popular Movies" type="popular" onMovieClick={handleMovieClick} favorites={favorites} onToggleFavorite={toggleFavorite} />
-                <MovieSection title="Action" type="genre" genreId={28} onMovieClick={handleMovieClick} favorites={favorites} onToggleFavorite={toggleFavorite} />
-                <MovieSection title="Comedy" type="genre" genreId={35} onMovieClick={handleMovieClick} favorites={favorites} onToggleFavorite={toggleFavorite} />
-                <MovieSection title="Horror" type="genre" genreId={27} onMovieClick={handleMovieClick} favorites={favorites} onToggleFavorite={toggleFavorite} />
+                <MovieSection title="Popular Movies" type="popular" onMovieClick={handleMovieSelect} favorites={favorites} onToggleFavorite={toggleFavorite} />
+                <MovieSection title="Action" type="genre" genreId={28} onMovieClick={handleMovieSelect} favorites={favorites} onToggleFavorite={toggleFavorite} />
+                <MovieSection title="Comedy" type="genre" genreId={35} onMovieClick={handleMovieSelect} favorites={favorites} onToggleFavorite={toggleFavorite} />
+                <MovieSection title="Horror" type="genre" genreId={27} onMovieClick={handleMovieSelect} favorites={favorites} onToggleFavorite={toggleFavorite} />
               </>
             )
           } />
@@ -172,7 +172,7 @@ function App() {
               <MovieSection 
                 title={`${favorites.length} favorite movies`} 
                 movies={favorites} 
-                onMovieClick={handleMovieClick}
+                onMovieClick={handleMovieSelect}
                 favorites={favorites}
                 onToggleFavorite={toggleFavorite}
               />
@@ -180,14 +180,14 @@ function App() {
           } />
           <Route path="/movies" element={
             <MoviesPage 
-              onMovieClick={handleMovieClick} 
+              onMovieClick={handleMovieSelect} 
               favorites={favorites} 
               onToggleFavorite={toggleFavorite} 
             />
           } />
           <Route path="/messages" element={<MessagesPage user={user} />} />
           <Route path="/downloads" element={<DownloadsPage />} />
-          <Route path="/movie/:movieId" element={<MovieDetailsPage user={user} onMovieClick={handleMovieClick} />} />
+          <Route path="/movie/:movieId" element={<MovieDetailsPage user={user} onMovieClick={handleMovieSelect} />} />
         </Routes>
       </div>
 
