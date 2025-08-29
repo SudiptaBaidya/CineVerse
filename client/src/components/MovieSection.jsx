@@ -72,6 +72,17 @@ const MovieSection = ({ title = "You Might Like", type = "recommendations", movi
     }
   };
 
+  // Add debug logs for hover events
+  const handleHoverStart = (movieId) => {
+    console.log('Hover start on movie:', movieId);
+    setHoveredMovie(movieId);
+  };
+
+  const handleHoverEnd = () => {
+    console.log('Hover end');
+    setHoveredMovie(null);
+  };
+
   const sectionVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
@@ -141,7 +152,7 @@ const MovieSection = ({ title = "You Might Like", type = "recommendations", movi
         
         <div className="movies-scroll">
           {movies.map((movie, index) => (
-            <motion.div
+              <motion.div
               key={movie.id}
               className="movie-card"
               variants={cardVariants}
@@ -150,8 +161,8 @@ const MovieSection = ({ title = "You Might Like", type = "recommendations", movi
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
               whileHover={{ scale: 1.05 }}
-              onHoverStart={() => setHoveredMovie(movie.id)}
-              onHoverEnd={() => setHoveredMovie(null)}
+              onHoverStart={() => handleHoverStart(movie.id)}
+              onHoverEnd={() => handleHoverEnd()}
               onClick={(e) => handleMovieClick(movie.id, e)}
             >
               <div className="movie-poster-container">
