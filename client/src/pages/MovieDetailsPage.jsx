@@ -12,6 +12,7 @@ const MovieDetailsPage = ({ user, onMovieClick }) => {
   const { movieId } = useParams();
   const navigate = useNavigate();
   const [movie, setMovie] = useState(null);
+  const [watchProviders, setWatchProviders] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showRecommendModal, setShowRecommendModal] = useState(false);
   const [showCreateWatchPartyModal, setShowCreateWatchPartyModal] = useState(false);
@@ -23,6 +24,8 @@ const MovieDetailsPage = ({ user, onMovieClick }) => {
       try {
         const movieData = await tmdbAPI.getMovieDetails(movieId);
         setMovie(movieData);
+        const providersData = await tmdbAPI.getWatchProviders(movieId);
+        setWatchProviders(providersData);
       } catch (error) {
         console.error('Error fetching movie details:', error);
         setMovie(null); // Set movie to null on error
@@ -113,6 +116,51 @@ const MovieDetailsPage = ({ user, onMovieClick }) => {
       </div>
     );
   }
+
+  const renderProviders = (providers) => {
+    if (!providers) return <p>Not available for streaming, rent, or purchase in your region.</p>;
+
+    return (
+      <div className="providers-list">
+        {providers.flatrate && (
+          <div className="provider-category">
+            <h4>Stream</h4>
+            <div className="provider-icons">
+              {providers.flatrate.map(provider => (
+                <a key={provider.provider_id} href={providers.link} target="_blank" rel="noopener noreferrer">
+                  <img src={`https://image.tmdb.org/t/p/w45${provider.logo_path}`} alt={provider.provider_name} title={provider.provider_name} />
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
+        {providers.rent && (
+          <div className="provider-category">
+            <h4>Rent</h4>
+            <div className="provider-icons">
+              {providers.rent.map(provider => (
+                <a key={provider.provider_id} href={providers.link} target="_blank" rel="noopener noreferrer">
+                  <img src={`https://image.tmdb.org/t/p/w45${provider.logo_path}`} alt={provider.provider_name} title={provider.provider_name} />
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
+        {providers.buy && (
+          <div className="provider-category">
+            <h4>Buy</h4>
+            <div className="provider-icons">
+              {providers.buy.map(provider => (
+                <a key={provider.provider_id} href={providers.link} target="_blank" rel="noopener noreferrer">
+                  <img src={`https://image.tmdb.org/t/p/w45${provider.logo_path}`} alt={provider.provider_name} title={provider.provider_name} />
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  };
 
   return (
     <motion.div 
@@ -208,8 +256,6 @@ const MovieDetailsPage = ({ user, onMovieClick }) => {
             )}
           </section>
         )}
-
-          )}
 
         {/* Where to Watch */}
         <section className="movie-details-watch-providers-section">
