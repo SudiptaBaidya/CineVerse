@@ -430,6 +430,61 @@
   font-size: 0.9rem;
 }
 
+/* Where to Watch Section */
+.movie-details-watch-providers-section {
+  padding: 2rem 0;
+}
+
+.movie-details-watch-providers-section h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  color: #fff;
+  border-bottom: 2px solid #e50914;
+  padding-bottom: 0.5rem;
+  display: inline-block;
+}
+
+.providers-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.provider-category {
+  background-color: #1c1c1c;
+  padding: 1.5rem;
+  border-radius: 8px;
+}
+
+.provider-category h4 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+
+.provider-icons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.provider-icons a {
+  display: block;
+  transition: transform 0.2s ease;
+}
+
+.provider-icons a:hover {
+  transform: scale(1.1);
+}
+
+.provider-icons img {
+  width: 45px;
+  height: 45px;
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+
 /* Responsive Adjustments */
 @media (max-width: 1024px) {
   .movie-details-hero {

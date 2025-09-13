@@ -181,5 +181,25 @@ export const tmdbAPI = {
       console.error('Error fetching movie details:', error);
       return null;
     }
+  },
+
+  // Get movie watch providers
+  getWatchProviders: async (movieId) => {
+    try {
+      const response = await fetch(`${BASE_URL}/movie/${movieId}/watch/providers?api_key=${API_KEY}`);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const data = await response.json();
+      return data.results || null;
+    } catch (error) {
+      console.error('Error fetching watch providers:', error);
+      return null;
+    }
+  }
+};
+      };
+    } catch (error) {
+      console.error('Error fetching movie details:', error);
+      return null;
+    }
   }
 };

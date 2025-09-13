@@ -209,6 +209,14 @@ const MovieDetailsPage = ({ user, onMovieClick }) => {
           </section>
         )}
 
+          )}
+
+        {/* Where to Watch */}
+        <section className="movie-details-watch-providers-section">
+          <h2>Where to Watch</h2>
+          {watchProviders ? renderProviders(watchProviders.US) : <p>Loading providers...</p>}
+        </section>
+
           {/* Cast */}
           {movie.cast?.length > 0 && (
             <section className="movie-details-cast-section">
