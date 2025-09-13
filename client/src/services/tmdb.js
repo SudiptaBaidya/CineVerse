@@ -196,6 +196,3 @@ export const tmdbAPI = {
     }
   }
 };
-      };
-    }
-};
