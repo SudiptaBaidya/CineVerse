@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Play, Download, Star, Clock, MessageSquarePlus, CalendarPlus, Heart } from 'lucide-react';
+import { Helmet } from 'react-helmet-async';
 import RecommendMovieModal from '../components/RecommendMovieModal';
 import CreateWatchPartyModal from '../components/CreateWatchPartyModal';
 import { tmdbAPI } from '../services/tmdb';
@@ -162,6 +163,25 @@ const MovieDetailsPage = ({ user, onMovieClick }) => {
     );
   };
 
+  const movieSchema = {
+    "@context": "https://schema.org",
+    "@type": "Movie",
+    "name": movie.title,
+    "datePublished": movie.year,
+    "description": movie.description,
+    "image": movie.poster,
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": movie.rating,
+      "bestRating": "10",
+      "ratingCount": movie.voteCount
+    },
+    "director": movie.crew?.filter(person => person.job === 'Director').map(person => ({
+      "@type": "Person",
+      "name": person.name
+    }))
+  };
+
   return (
     <motion.div 
       className="movie-details-page"
@@ -169,6 +189,14 @@ const MovieDetailsPage = ({ user, onMovieClick }) => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
+      <Helmet>
+        <title>{`${movie.title} (${movie.year}) - CineVerse`}</title>
+        <meta name="description" content={movie.description} />
+        <script type="application/ld+json">
+          {JSON.stringify(movieSchema)}
+        </script>
+      </Helmet>
+
       {/* Hero Section */}
       <div className="movie-details-hero" style={{ backgroundImage: `linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 50%, rgba(0,0,0,0.8) 100%), url(${movie.backdrop})` }}>
         <button className="btn-back" onClick={() => navigate(-1)}>← Back</button>
