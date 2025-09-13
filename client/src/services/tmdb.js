@@ -197,9 +197,5 @@ export const tmdbAPI = {
   }
 };
       };
-    } catch (error) {
-      console.error('Error fetching movie details:', error);
-      return null;
     }
-  }
 };
